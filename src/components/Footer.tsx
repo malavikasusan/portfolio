@@ -12,7 +12,7 @@ export default function Footer() {
         style={{
           maxWidth: "720px",
           margin: "0 auto",
-          padding: "var(--space-8) var(--space-6)",
+          padding: "var(--space-8) var(--page-gutter)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",

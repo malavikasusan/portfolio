@@ -23,7 +23,7 @@ export default function Nav() {
         style={{
           maxWidth: "720px",
           margin: "0 auto",
-          padding: "var(--space-6) var(--space-6)",
+          padding: "var(--space-6) var(--page-gutter)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "baseline",
@@ -40,7 +40,7 @@ export default function Nav() {
             color: "var(--color-text)",
           }}
         >
-          Portfolio
+          Malavika
         </Link>
 
         {/* Nav links */}

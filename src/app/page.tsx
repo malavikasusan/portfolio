@@ -1,5 +1,12 @@
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
+import { caseStudies } from "@/lib/caseStudies";
+
+export const metadata = {
+  title: "Malavika — AI Designer",
+  description:
+    "Portfolio of Malavika, AI Designer — discovery, design systems, and research on enterprise and AI-adjacent products.",
+};
 
 export default function Home() {
   return (
@@ -7,7 +14,7 @@ export default function Home() {
       style={{
         maxWidth: "720px",
         margin: "0 auto",
-        padding: "var(--space-24) var(--space-6)",
+        padding: "var(--space-24) var(--page-gutter)",
       }}
     >
       {/* Name + positioning */}
@@ -22,7 +29,7 @@ export default function Home() {
             marginBottom: "var(--space-6)",
           }}
         >
-          Designer — Your Name
+          Malavika — AI Designer
         </p>
 
         <h1
@@ -35,7 +42,7 @@ export default function Home() {
             maxWidth: "560px",
           }}
         >
-          I design products that earn trust through clarity.
+          I design AI products that earn trust through clarity.
         </h1>
       </FadeIn>
 
@@ -50,9 +57,10 @@ export default function Home() {
             marginBottom: "var(--space-16)",
           }}
         >
-          UX lead at [Company]. I work across discovery, design systems,
-          and research — typically on enterprise tooling and AI-adjacent
-          product work.
+          UX lead working at the intersection of AI and enterprise software.
+          I work across discovery, design systems, and research — turning
+          complex model behaviour into interfaces people can actually reason
+          about.
         </p>
       </FadeIn>
 
@@ -84,22 +92,20 @@ export default function Home() {
               padding: 0,
               display: "flex",
               flexDirection: "column",
-              gap: "var(--space-4)",
             }}
           >
-            {workItems.map((item) => (
-              <li key={item.slug}>
+            {caseStudies.map((cs) => (
+              <li key={cs.slug}>
                 <Link
-                  href={`/work/${item.slug}`}
+                  href={`/work/${cs.slug}`}
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "baseline",
                     gap: "var(--space-6)",
-                    paddingBottom: "var(--space-4)",
+                    padding: "var(--space-4) 0",
                     borderBottom: "1px solid var(--color-border)",
                   }}
-                  className="work-link"
                 >
                   <span
                     style={{
@@ -107,7 +113,7 @@ export default function Home() {
                       fontWeight: 500,
                     }}
                   >
-                    {item.title}
+                    {cs.title}
                   </span>
                   <span
                     style={{
@@ -118,7 +124,7 @@ export default function Home() {
                       flexShrink: 0,
                     }}
                   >
-                    {item.year}
+                    {cs.timeline}
                   </span>
                 </Link>
               </li>
@@ -142,21 +148,3 @@ export default function Home() {
     </div>
   );
 }
-
-const workItems = [
-  {
-    slug: "ai-summarization",
-    title: "AI Summarization",
-    year: "2024",
-  },
-  {
-    slug: "usability-testing-playback",
-    title: "9.2 Usability Testing & Playback",
-    year: "2024",
-  },
-  {
-    slug: "uxdrt",
-    title: "UXDRT",
-    year: "2023",
-  },
-];

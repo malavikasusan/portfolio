@@ -16,8 +16,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Design portfolio",
+  title: {
+    default: "Malavika — AI Designer",
+    template: "%s — Malavika",
+  },
+  description:
+    "Portfolio of Malavika, AI Designer — discovery, research, and enterprise AI product work.",
 };
 
 export default function RootLayout({

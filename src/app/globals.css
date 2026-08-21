@@ -30,6 +30,9 @@
   --space-16: 4rem;
   --space-24: 6rem;
 
+  /* Page gutter — fluid, shrinks on narrow screens */
+  --page-gutter: clamp(var(--space-4), 5vw, var(--space-8));
+
   /* Motion */
   --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
   --dur-fast:   150ms;
@@ -100,4 +103,31 @@ img, svg {
 ::selection {
   background-color: var(--color-accent);
   color: #fff;
+}
+
+/* ─── Focus-visible (keyboard navigation) ───────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Suppress focus ring on mouse interaction */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ─── Link hover — subtle accent underline ───────────────────────────────────── */
+/* Applied to <a> elements that aren't nav items or buttons */
+.prose a:hover,
+.link-hover:hover {
+  color: var(--color-accent);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+/* ─── Responsive: narrow viewports ──────────────────────────────────────────── */
+@media (max-width: 600px) {
+  :root {
+    /* Tighten the outer gutter */
+    --page-gutter: var(--space-4);
+  }
 }

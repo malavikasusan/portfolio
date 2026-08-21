@@ -13,7 +13,7 @@ export default function WorkIndex() {
       style={{
         maxWidth: "720px",
         margin: "0 auto",
-        padding: "var(--space-24) var(--space-6)",
+        padding: "var(--space-24) var(--page-gutter)",
       }}
     >
       {/* Header */}
