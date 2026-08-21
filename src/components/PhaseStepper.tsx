@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ReactMarkdown from "react-markdown";
 import type { Phase } from "@/lib/caseStudies";
 
 interface PhaseStepperProps {
@@ -152,8 +153,8 @@ export default function PhaseStepper({ phases }: PhaseStepperProps) {
                       paddingBottom: "var(--space-8)",
                     }}
                   >
-                    {/* Detail text */}
-                    <p
+                    {/* Detail text — rendered as markdown */}
+                    <div
                       style={{
                         fontSize: "var(--text-sm)",
                         color: "var(--color-muted)",
@@ -163,9 +164,43 @@ export default function PhaseStepper({ phases }: PhaseStepperProps) {
                             ? "var(--space-6)"
                             : 0,
                       }}
+                      className="phase-detail"
                     >
-                      {phase.detail}
-                    </p>
+                      <ReactMarkdown
+                        components={{
+                          p: ({ children }) => (
+                            <p style={{ marginBottom: "var(--space-4)" }}>{children}</p>
+                          ),
+                          strong: ({ children }) => (
+                            <strong style={{ fontWeight: 600, color: "var(--color-text)" }}>{children}</strong>
+                          ),
+                          blockquote: ({ children }) => (
+                            <blockquote
+                              style={{
+                                borderLeft: "2px solid var(--color-accent)",
+                                paddingLeft: "var(--space-4)",
+                                margin: "var(--space-4) 0",
+                                color: "var(--color-muted)",
+                                fontStyle: "italic",
+                              }}
+                            >
+                              {children}
+                            </blockquote>
+                          ),
+                          ol: ({ children }) => (
+                            <ol style={{ paddingLeft: "var(--space-6)", marginBottom: "var(--space-4)" }}>{children}</ol>
+                          ),
+                          ul: ({ children }) => (
+                            <ul style={{ paddingLeft: "var(--space-6)", marginBottom: "var(--space-4)" }}>{children}</ul>
+                          ),
+                          li: ({ children }) => (
+                            <li style={{ marginBottom: "var(--space-1)" }}>{children}</li>
+                          ),
+                        }}
+                      >
+                        {phase.detail}
+                      </ReactMarkdown>
+                    </div>
 
                     {/* Exhibits */}
                     {phase.exhibits && phase.exhibits.length > 0 && (
