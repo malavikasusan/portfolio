@@ -130,6 +130,8 @@ function ExhibitBlock({ ex }: { ex: Exhibit }) {
 
 export default function PhaseStepper({ phases }: PhaseStepperProps) {
   const [openId, setOpenId] = useState<string | null>(phases[0]?.id ?? null);
+  // Mutable counter shared between the ol and li renderers to number pain-point items
+  const liCounter = { current: 0 };
 
   function toggle(id: string) {
     setOpenId((prev) => (prev === id ? null : id));
@@ -347,15 +349,77 @@ export default function PhaseStepper({ phases }: PhaseStepperProps) {
                                   {children}
                                 </blockquote>
                               ),
-                              ol: ({ children }) => (
-                                <ol style={{ paddingLeft: "var(--space-6)", marginBottom: "var(--space-4)" }}>{children}</ol>
-                              ),
+                              ol: ({ children }) => {
+                                // Reset the per-list counter for pain-point items
+                                liCounter.current = 0;
+                                return (
+                                  <ol
+                                    style={{
+                                      listStyle: "none",
+                                      padding: 0,
+                                      margin: "var(--space-4) 0",
+                                    }}
+                                  >
+                                    {children}
+                                  </ol>
+                                );
+                              },
                               ul: ({ children }) => (
                                 <ul style={{ paddingLeft: "var(--space-6)", marginBottom: "var(--space-4)" }}>{children}</ul>
                               ),
-                              li: ({ children }) => (
-                                <li style={{ marginBottom: "var(--space-1)" }}>{children}</li>
-                              ),
+                              li: ({ children }) => {
+                                // Pain-point items: li > [strong "Title", " — body text..."]
+                                // react-markdown renders the strong directly as first child (no p wrapper)
+                                const nodes = Array.isArray(children) ? children : [children];
+                                const firstNode = nodes[0];
+                                const isPainPoint =
+                                  firstNode !== null &&
+                                  typeof firstNode === "object" &&
+                                  "type" in (firstNode as object) &&
+                                  (firstNode as React.ReactElement).type === "strong";
+
+                                if (isPainPoint) {
+                                  const [titleEl, ...bodyNodes] = nodes;
+                                  liCounter.current += 1;
+                                  const num = String(liCounter.current).padStart(2, "0");
+                                  const title = (titleEl as React.ReactElement<{ children: React.ReactNode }>).props.children;
+                                  return (
+                                    <li style={{ marginBottom: "var(--space-6)" }}>
+                                      {/* Red number */}
+                                      <span
+                                        style={{
+                                          display: "block",
+                                          fontFamily: "var(--font-mono)",
+                                          fontSize: "var(--text-base)",
+                                          fontWeight: 700,
+                                          color: "#BC3B42",
+                                          marginBottom: "var(--space-2)",
+                                          letterSpacing: "0.04em",
+                                        }}
+                                      >
+                                        {num}
+                                      </span>
+                                      {/* Bold red title */}
+                                      <p
+                                        style={{
+                                          fontWeight: 700,
+                                          color: "#BC3B42",
+                                          fontSize: "var(--text-sm)",
+                                          marginBottom: "var(--space-1)",
+                                          lineHeight: 1.4,
+                                        }}
+                                      >
+                                        {title}
+                                      </p>
+                                      {/* Body text */}
+                                      <span style={{ color: "var(--color-muted)" }}>{bodyNodes}</span>
+                                    </li>
+                                  );
+                                }
+                                return (
+                                  <li style={{ marginBottom: "var(--space-1)" }}>{children}</li>
+                                );
+                              },
                             }}
                           >
                             {phase.detail}

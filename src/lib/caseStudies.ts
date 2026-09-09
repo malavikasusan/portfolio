@@ -21,7 +21,7 @@ export interface Phase {
   detail?: string;          // full markdown content, shown expanded (standard phases)
   exhibits?: Exhibit[];
   sections?: PhaseSection[]; // paired layout: each section has its own exhibit
-  status?: "done" | "in-progress";
+  status?: "in-progress";
 }
 
 export interface CaseStudy {
@@ -44,13 +44,13 @@ export const caseStudies: CaseStudy[] = [
   // ── 1. AI Summarization ───────────────────────────────────────────────────
   {
     slug: "ai-summarization",
-    title: "AI summarization",
+    title: "AI summarization feature for Maximo",
     role: "Design owner, AI Strategy & Discovery Squad | IBM Maximo Manage",
     timeline: "Jun 2026 – Present",
     status: "In progress",
     gated: false,
     summary:
-      "From a vague 'summarize any page' feature request to a validated, evidence driven insight system — discovery tooling, synthesis, data science handoff, and ongoing build collaboration.",
+      "From a vague 'summarize any page' feature request to a validated, evidence-driven insight system; discovery tooling, synthesis, data-science handoff, and ongoing build collaboration.",
     phases: [
       {
         id: "reframe",
@@ -69,10 +69,10 @@ From "summarize a record" to "surface a decision" became the thesis for everythi
       },
       {
         id: "discovery-tooling",
-        title: "Discovery tooling — BOB + VOC corpus",
+        title: "Discovery Tooling | BOB + VOC Corpus",
         summary:
           "Built a custom AI research agent to make 24+ interviews queryable, not just readable.",
-        detail: `Reading 24 long form interviews once and pulling a few quotes wasn't going to hold up to the scale of patterns needed across personas, roles, and industries. Instead of treating the interviews as static documents, I structured them as a working research corpus — my first real, hands-on use of BOB, built with my team lead. I adapted the approach from a pattern used on another project, then refined the prompts and schema for this use case.
+        detail: `Reading 24 long-form interviews once and pulling a few quotes wasn't going to hold up to the scale of patterns needed across personas, roles, and industries. Instead of treating the interviews as static documents, I structured them as a working research corpus — my first real, hands-on use of BOB, built with my team lead. I adapted the approach from a pattern used on another project, then refined the prompts and schema for this use case.
 
 What I built, concretely:
 
@@ -91,27 +91,27 @@ What I built, concretely:
       },
       {
         id: "synthesis",
-        title: "Synthesis: pain points to opportunity areas",
+        title: "Synthesis: Painpoints to opportunity areas",
         summary:
-          "Persona level pain points, mapped to real Maximo data objects so design intent traced to what the system could build.",
-        detail: `Working with the highest-impact personas — Asset Manager and Maintenance Supervisor — pain points were broken down on a Mural board, run in parallel with the mobile and technician design team covering their side of the product.
+          "Persona-level painpoints, mapped to real Maximo data objects so design intent traced to what the system could build.",
+        detail: `Working with the highest-impact personas; Asset Manager and Maintenance Supervisor, painpoints were broken down on a Mural board, run in parallel with the mobile/technician design team covering their side of the product.
 
 For Maintenance Supervisors specifically, two use cases surfaced clearly:
 
-1. **Shift handoff summary** — What happened overnight, what's still blocked, what needs immediate attention.
+1. **Shift-handoff summary** — What happened overnight, what's still blocked, what needs immediate attention.
 2. **Prioritize today's work** — What's new, what's urgent, what's blocked, ranked by safety and production impact.
 
 Each opportunity was then broken down to the level of what Maximo data it would actually require; objects, relationships, and fields (WORKORDER, ASSET, WPMATERIAL, WFASSIGNMENT, and more) so the design intent could be traced directly to what the system could realistically surface. This wasn't a nice-to-have step; it's what made the handoff to engineering actionable instead of aspirational.`,
         exhibits: [
-          { type: "image", src: "", caption: "Mural synthesis — persona pain points → AI summary opportunity → what should be included" },
+          { type: "image", src: "", caption: "Mural synthesis; persona painpoints → AI summary opportunity → what should be included" },
         ],
       },
       {
         id: "handoff",
-        title: "Handoff to data science",
+        title: "Handoff to Data Science",
         summary:
           "A structured spec, not a slide deck: inclusion criteria and object mapping the engineering team could build against.",
-        detail: `The synthesis — inclusion criteria, object/field mapping, and example outputs — was packaged into a structured spec and handed to the data science team building the summarization config engine, as a Jira story with explicit acceptance criteria: findings documented, information needs synthesized, playback delivered, and full traceability from research evidence to every recommendation.
+        detail: `The synthesis; inclusion criteria, object/field mapping, and example outputs — was packaged into a structured spec and handed to the Data Science team building the summarization config engine, as a Jira story with explicit acceptance criteria: findings documented, information needs synthesized, playback delivered, and full traceability from research evidence to every recommendation.
 
 The same process ran in parallel for the technician/mobile side, led by colleagues on that team, using the same inclusion-criteria structure so both halves of the product could converge on one architecture rather than diverging into two.`,
         exhibits: [
@@ -122,7 +122,7 @@ The same process ran in parallel for the technician/mobile side, led by colleagu
         id: "build-collaboration",
         title: "Staying in the Build",
         summary:
-          "Handoff wasn't the end — ongoing collaboration to simplify a config architecture that outgrew itself.",
+          "Handoff wasn't the end, ongoing collaboration to simplify a config architecture that outgrew itself.",
         detail: `The intent/input/output framework the Data Science team built, defining what the summary should contain, what data to pull, how to analyze it, and how to format the output — needed continuous design input to stay grounded in real user needs rather than technical convenience.
 
 That collaboration is ongoing. The config architecture the Data Science team built — itself another BOB project — became more complex than it needed to be as capability grew. Currently working with them to simplify it, running a local instance of the config tool to test and propose a cleaner structure directly rather than only specifying requirements from the outside.`,
@@ -136,16 +136,16 @@ That collaboration is ongoing. The config architecture the Data Science team bui
         id: "validation",
         title: "Validating with Users",
         summary:
-          "Five participant study: relevance was easy, trust had to be earned through evidence.",
-        detail: `Before committing further design direction, I planned and led a round of usability testing — 5 participants, evaluating early AI insight concepts against three questions: what should surface first, what builds trust, and where AI actually reduces investigation effort.
+          "5-participant UT: relevance was easy, trust had to be earned through evidence.",
+        detail: `Before committing further design direction, I planned and led a round of usability testing — 5 participants, evaluating early AI-insight concepts against three questions: what should surface first, what builds trust, and where AI actually reduces investigation effort.
 
-What we learned:
+What was learned:
 
 Relevance was high (4.2/5) when information matched role context — but trust (3.4/5) didn't follow automatically. Trust wasn't driven by AI confidence scores; it was driven by visible evidence and transparency in the reasoning.
 
 Participants converged on five recurring information needs, regardless of role: what's urgent, what's blocked, what's broken, what happened before, why this matters.
 
-Five concrete design principles emerged and are now shaping the out-of-the-box AI direction for Maximo: progressive disclosure, always show evidence, surface exceptions over routine status, pair current state with historical context, and always recommend a next action.`,
+Five concrete design principles emerged and are now shaping the OOTB AI direction for Maximo: progressive disclosure, always show evidence, surface exceptions over routine status, pair current state with historical context, and always recommend a next action.`,
         exhibits: [
           { type: "image", src: "", caption: "Research metrics — relevance, trust, actionability, efficiency" },
           { type: "image", src: "", caption: "Five information needs, prioritization table with example insight text" },
@@ -178,10 +178,7 @@ What this project demonstrates:
     status: "Delivered",
     gated: false,
     summary:
-      "End-to-end usability validation for Maximo 9.2 AI features. " +
-      "Designed the methodology, built the recruiting infrastructure, " +
-      "ran and synthesized findings across 8 users from 3 companies, " +
-      "and led an executive playback that directly shaped Maximo 9.3 priorities.",
+      "I planned the validation methodology, built the recruiting and participant infrastructure, ran and note-took every session, synthesized findings across 8 users from 3 companies, and brought results to an executive playback that shaped 9.3 priorities.",
     phases: [
       {
         id: "methodology",
@@ -192,7 +189,6 @@ What this project demonstrates:
         exhibits: [
           { type: "image", src: "", caption: "Validation plan, objectives, methodology, and task scenarios" },
         ],
-        status: "done",
       },
       {
         id: "recruiting",
@@ -203,7 +199,6 @@ What this project demonstrates:
         exhibits: [
           { type: "image", src: "", caption: "Recruiting tracker, participant roles, outreach history, and round scheduling" },
         ],
-        status: "done",
       },
       {
         id: "sessions",
@@ -214,29 +209,28 @@ What this project demonstrates:
         exhibits: [
           { type: "image", src: "", caption: "Live session notes, task by task, three note takers in parallel" },
         ],
-        status: "done",
       },
       {
         id: "current-state",
-        title: "What we learned: The starting point",
+        title: "What We Learned",
         summary:
           "Before testing the assistant, we measured how hard the job already was. It set the bar for what the AI needed to beat.",
         detail: "Two baseline questions anchored the whole study: how easy is it to find information in Maximo today, and how easy is it to understand an asset's condition today.\n\nFinding data rated 5.6 out of 7, somewhat easy, but only once someone already knew what they were looking for. Participants relied heavily on prior knowledge of the system rather than being guided to information. Difficulty spiked when projects were closed, when service records had many linked entries, or when someone had to cross from one application into another.\n\nUnderstanding asset condition rated a full point and a half lower, 4 out of 7. This wasn't a tooling gap, it was a synthesis problem. Participants described manually pulling together work orders, work order history, meter data, logs, inspections, and notes, then holding all of it in their head to form a judgment. One participant put it plainly: he'd use Maximo as a starting point, then go find a technician and ask them what was really going on.\n\nThat gap, between being able to find records and being able to understand what's actually happening, became the lens for everything we tested next.",
         exhibits: [
           { type: "image", src: "", caption: "Baseline ratings, finding data (5.6/7) and understanding asset condition (4/7)" },
         ],
-        status: "done",
+        sta
       },
       {
         id: "findings",
-        title: "What we learned: capability by capability",
+        title: "What we learned",
         summary:
           "We tested five capability areas. Reasoning and confirmation was the big one, but every capability taught us something specific.",
         sections: [
           {
             id: "chat-history",
             title: "Chat History",
-            text: "Chat history aligned closely with what people already expected from a chat tool. Everyone understood the list as previous conversations, recognized chronological grouping and pinned chats, and expected clicking into a chat to resume or review it, similar to any consumer chat app. Renaming a conversation and pinning it for later were both used naturally, without us explaining how. The main gap was scale: conversation titles were often unclear or truncated, and 3 of 8 participants suggested AI generated titles and better grouping as history grows.",
+            text: "Chat history aligned closely with what people already expected from a chat tool. Everyone understood the list as previous conversations, recognized chronological grouping and pinned chats, and expected clicking into a chat to resume or review it, similar to any consumer chat app. Renaming a conversation and pinning it for later were both used naturally, without us explaining how. The main gap was scale: conversation titles were often unclear or truncated, and 3 of 8 participants suggested AI-summarized titles and better grouping as history grows.",
             exhibit: { type: "image", src: "", caption: "Chat history findings, chronological grouping, pinned chats, and renaming used without guidance" },
           },
           {
@@ -247,19 +241,19 @@ What this project demonstrates:
           },
           {
             id: "condition-assessment",
-            title: "Condition assessment, single and multiple assets",
+            title: "Condition Assessment, Single and Multiple Assets",
             text: "Single asset insights were where the assistant felt most immediately useful. People understood insights as summaries of condition, historical data, and action oriented health evaluations, exactly how they already evaluate assets manually. One participant said it was very close to evaluation work I perform manually. The friction was presentation, the default view felt too long and dense, and three participants asked for a way to copy the generated insight out.\n\nMulti-asset insights were valued too, but participants outgrew asset by asset summaries fast. Once you're looking at five pumps instead of one, you don't want five separate paragraphs, you want the pattern across them. One participant put it directly: tell me what's important across these assets, not just what's happening to each one. That single line became one of the clearest signals for what 9.3 needed to prioritize, fleet level summaries and root cause patterns, not repeated single asset templates.",
             exhibit: { type: "image", src: "", caption: "Single and multi-asset condition insight findings, and the 'tell me what's important across these assets' quote" },
           },
           {
             id: "gen-llm",
-            title: "General knowledge, with and without references",
+            title: "General Knowledge, With and Without References",
             text: "When the assistant answered from general knowledge rather than Maximo data, with no reference attached, 100% of participants correctly understood the distinction. People shifted naturally from what happened to how do I fix it, and several immediately asked follow up questions like whether replacement parts were available.\n\nWhen references were introduced, source visibility became the real sticking point. Everyone saw value in references for validating information and accessing documentation, but 5 of 8 wanted stronger visibility into exactly where information came from, and 3 of 8 remained uncertain about the actual source even after seeing the general knowledge label. That gap directly informed the case for investing further in document search and citation for 9.3.",
             exhibit: { type: "image", src: "", caption: "General knowledge responses, with and without references, 100% correctly distinguished source, 3/8 uncertain of exact origin" },
           },
           {
             id: "reasoning-confirmation",
-            title: "Reasoning and confirmation — the big one",
+            title: "Reasoning and Confirmation, the Big One",
             text: "This was the capability we spent the most time validating, and it earned that attention. All 8 participants valued the reasoning trace for transparency, trust, and understanding what the assistant was doing, and 7 of 8 interpreted it correctly the first time. It had a ceiling though, technical phrasing like href and single query operation confused people, and once they understood the assistant was repeating the same analysis pattern across multiple assets, the reasoning trace started to feel redundant rather than reassuring.\n\nConfirmation states worked for a similar reason. 7 of 8 correctly understood the continue or cancel step as validating the selected records before analysis, and people genuinely checked asset type, description, location, priority, and record count before deciding, real cognitive work. But Continue and Cancel didn't clearly communicate their consequences. We recommended changing the confirmation copy to something closer to Confirm records to generate insights, so the action matched the thinking users were already doing.\n\nConfidence scores followed the same pattern. 7 of 8 understood the rating correctly, but almost everyone wanted to know what was behind the number, which records contributed, how recent the data was, whether anything was missing. Confidence without evidence didn't fully land as trust.",
             exhibit: { type: "image", src: "", caption: "Reasoning and confirmation findings, 8/8 valued reasoning, 7/8 understood confirmation correctly" },
           },
@@ -283,15 +277,15 @@ What this project demonstrates:
   // ── 3. UXDRT ─────────────────────────────────────────────────────────────
   {
     slug: "uxdrt",
-    title: "UXDRT — UX delivery readiness tracker",
+    title: "UXDRT — UX Delivery Readiness Tracker",
     role: "Contributor — QA tracking & triage, Maximo AI Assistant",
     timeline: "2026 (9.2 release cycle)",
     status: "Delivered",
     gated: false,
     summary:
-      "A rigor story, not a system ownership story. UXDRT was designed and built by my team lead — my role was driving high volume, high quality QA contribution through it, tracking utterances across every assistant capability.",
+      "A rigor story, not a system-ownership story. UXDRT was designed and built by my team lead — my role was driving high volume, high-quality QA contribution through it, tracking utterances across every assistant capability.",
     overview:
-      "UXDRT — a centralized QA tracking and triage system — was designed and built by my team lead after 9.1's Box Notes and Slack approach became unmanageable across just 6 documents. My role wasn't building the system; it was driving rigorous, high volume contribution through it: documenting QA observations across every 9.2 assistant capability (condition insights, work order query, reasoning steps, multi-asset flows), setting severity aligned to Jira, and creating well-scoped issues — Needs Investigation, Needs Design, Issue Created — instead of raw, underspecified bug reports.",
+      "UXDRT — a centralized QA tracking and triage system — was designed and built by my team lead after 9.1's Box Notes and Slack approach became unmanageable across just 6 documents. My role wasn't building the system; it was driving rigorous, high-volume contribution through it: documenting QA observations across every 9.2 assistant capability (condition insights, work order query, reasoning steps, multi-asset flows), setting severity aligned to Jira, and creating well-scoped issues — Needs Investigation, Needs Design, Issue Created — instead of raw, underspecified bug reports.",
     numbers:
       "390 findings tracked in 9.2, up from 113 in 9.1 — a 242% increase reflecting more thorough QA coverage, not declining quality. 68% mapped to Jira, 142 fixed, 35 moved to backlog, and roughly 10% traced back to a direct improvement in Carbon AI Chat.",
     phases: [
@@ -302,7 +296,7 @@ What this project demonstrates:
           "QA tracking for a growing set of AI capabilities had outgrown Box Notes and Slack.",
         detail: `In 9.1, QA findings for the Maximo Assistant were tracked across just 6 Box Notes — already unmanageable. For 9.2, my team lead designed and built UXDRT: a centralized Monday.com board with a structured workflow (Capture → Investigate → Triage → Prepare for Dev → Validate), giving the team a single source of truth for QA findings before they were escalated to Jira.
 
-This case study isn't about building that system — it's about what rigorous, high volume contribution inside it looked like.`,
+This case study isn't about building that system; it's about what rigorous, high-volume contribution inside it looked like.`,
         exhibits: [],
         status: "done",
       },
@@ -313,7 +307,6 @@ This case study isn't about building that system — it's about what rigorous, h
           "Tracked utterances and issues across every assistant capability — condition insights, WO query, reasoning steps, multi-asset flows, and more.",
         detail: `Working inside the UXDRT workflow, I contributed structured findings across the full range of 9.2 assistant capabilities — documenting observations clearly, setting severity aligned to Jira, and creating well-defined Jira issues (Needs Investigation, Needs Design, Issue Created) rather than raw, underspecified bug reports. That structure is what let engineering receive fewer, more actionable tickets instead of noise.`,
         exhibits: [],
-        status: "done",
       },
       {
         id: "impact",
@@ -332,17 +325,17 @@ This case study isn't about building that system — it's about what rigorous, h
   // ── 4. Guardium Exclusion Builder ────────────────────────────────────────
   {
     slug: "guardium-exclusion-builder",
-    title: "Redesigning the exclusion builder, IBM Guardium Data Protection",
+    title: "Redesigning the Exclusion Builder, IBM Guardium Data Protection",
     role: "UX Design Lead, Protect squad | IBM Data Security — Vulnerability Assessment and Active Threat Analytics",
     timeline: "Sept – Oct 2025",
     status: "Delivered",
     gated: false,
     summary:
-      "Analysts needed a way to suppress known safe activity from generating threat cases, without losing control over what got blocked or why. I redesigned the exclusion rule builder inside Guardium's Active Threat Analytics from a rigid, all-inputs form into a guided, real time, explainable builder, then supported it through to dev handoff and validated it with real users.",
+      "Analysts needed a way to suppress known safe activity from generating threat cases, without losing control over what got blocked or why. I redesigned the exclusion rule builder inside Guardium's Active Threat Analytics from a rigid, all-inputs form into a guided, real-time, explainable builder, then supported it through to dev handoff and validated it with real users.",
     phases: [
       {
         id: "context",
-        title: "Context and the problem",
+        title: "Context and the Problem",
         summary:
           "As Design Lead for Protect, I covered both Vulnerability Assessment and Active Threat Analytics. This case study covers one capability in depth: the Exclusion Builder.",
         detail: "I was the UX lead for the Protect squad within Guardium Data Protection, covering both Vulnerability Assessment and Analytics. Active Threat Analytics generates cases, structured folders of suspicious activity like repeated failed logins, SQL injections, or data leaks, so analysts can quickly investigate and respond to real threats.\n\nNot every flagged activity is actually a threat. Analysts needed a way to create exclusion rules, suppressing known safe or repetitive activity (an admin account running routine maintenance, for example) so it stopped generating noise and let them focus on what mattered.\n\nI defined the problem by auditing customer RFE tickets on Jira and running a heuristic evaluation of the legacy tool. Four issues came up consistently:\n\n1. **No flexible scheduling** — Rules ran indefinitely once created. Analysts had no option for a weekly, monthly, or quarterly schedule.\n2. **No preview of impact** — Analysts couldn't see which cases or dependencies a rule would affect before committing to it.\n3. **No traceability** — Once a rule existed, there was no record of why it was created or what it had actually affected over time.\n4. **No duplicate protection** — The system let people create the same exclusion repeatedly without warning, wasting effort and creating redundant rules.",
@@ -350,17 +343,16 @@ This case study isn't about building that system — it's about what rigorous, h
           { type: "image", src: "", caption: "Guardium Data Protection, main dashboard and Protect squad scope, Vulnerability Assessment and Advanced Analytics" },
           { type: "image", src: "", caption: "Active Threat Analytics case dashboard, cases and risk signals" },
         ],
-        status: "done",
       },
       {
         id: "redesign",
-        title: "Redesigning the builder",
+        title: "Redesigning the Builder",
         summary:
-          "The legacy tool forced people to start with dates and see every field at once. I rebuilt it as a linear, one-input-per-row flow with a real time preview of exactly what the rule would affect.",
-        detail: "The legacy condition builder had a specific set of problems: it forced users to start with dates, which set the wrong mental model from the first step. It didn't support multiple values or show dependencies between fields. Every rule was a set of isolated inputs, not one coherent idea. And the data grid exposed too much detail to read as a natural summary.\n\nI reframed the whole model around a few principles: show only the properties relevant to what someone's actually building, reveal one input at a time so people build precise exclusions instead of guessing, and make the impact of a rule visible before it's applied, not after.\n\nConcretely, that meant starting the flow with a name and description, so intent gets defined before any technical detail like IPs or databases enters the picture. The rule itself moved from a cluttered all-inputs layout to a linear, one-input-per-row builder, with a property automatically disabled once it's used, so invalid entries aren't possible in the first place. Dependency logic got explained inline, through tooltips and example entries, instead of leaving people to infer it.\n\nThe biggest trust builder was a real time preview: as someone built a condition, they could immediately see which existing cases matched it, with a checkbox to close those cases instantly and links to inspect them first. That single addition turned the builder from something you'd hesitate to use into something you could commit to with confidence.",
+          "The legacy tool forced people to start with dates and see every field at once. I rebuilt it as a linear, one-input-per-row flow with a real-time preview of exactly what the rule would affect.",
+        detail: "The legacy condition builder had a specific set of problems: it forced users to start with dates, which set the wrong mental model from the first step. It didn't support multiple values or show dependencies between fields. Every rule was a set of isolated inputs, not one coherent idea. And the data grid exposed too much detail to read as a natural summary.\n\nI reframed the whole model around a few principles: show only the properties relevant to what someone's actually building, reveal one input at a time so people build precise exclusions instead of guessing, and make the impact of a rule visible before it's applied, not after.\n\nConcretely, that meant starting the flow with a name and description, so intent gets defined before any technical detail like IPs or databases enters the picture. The rule itself moved from a cluttered all-inputs layout to a linear, one-input-per-row builder, with a property automatically disabled once it's used, so invalid entries aren't possible in the first place. Dependency logic got explained inline, through tooltips and example entries, instead of leaving people to infer it.\n\nThe biggest trust builder was a real-time preview: as someone built a condition, they could immediately see which existing cases matched it, with a checkbox to close those cases instantly and links to inspect them first. That single addition turned the builder from something you'd hesitate to use into something you could commit to with confidence.",
         exhibits: [
           { type: "image", src: "", caption: "Legacy exclusion builder, all inputs exposed at once, no dependency logic" },
-          { type: "image", src: "", caption: "Redesigned linear builder, one input per row with real time case preview" },
+          { type: "image", src: "", caption: "Redesigned linear builder, one input per row with real-time case preview" },
         ],
         status: "done",
       },
@@ -378,7 +370,7 @@ This case study isn't about building that system — it's about what rigorous, h
       },
       {
         id: "handoff",
-        title: "Design to dev handoff",
+        title: "Design to Dev Handoff",
         summary:
           "Structured Figma phases, fully clickable prototypes, and active collaboration that turned design questions into tracked engineering work.",
         detail: "I organized the Figma file into clear phases, exploration, prototype, and redlines, so the work stayed reusable rather than becoming one sprawling file. Delivery included fully clickable prototypes with an intro, a stated problem, and a scripted walkthrough of the workflow, so anyone reviewing it (PM, engineering, or a customer) could see the reasoning, not just the screens.\n\nDevelopment support ran through active Slack collaboration. When a design question came up mid-build, I converted it into a tracked Jira enhancement rather than letting it stay a side conversation, and kept redlines updated as the design evolved. Dev annotations covered logic, content rules, edge cases, empty states, and behavioral guidelines in detail; the goal was that engineering shouldn't have to guess at intent on anything ambiguous.",
@@ -390,10 +382,10 @@ This case study isn't about building that system — it's about what rigorous, h
       },
       {
         id: "validation",
-        title: "Validating with real analysts",
+        title: "Validating with Real Analysts",
         summary:
-          "Tested through IBM's Sponsored User Program. The real time preview and calendar view were the clear wins, and one participant asked for exactly the kind of intelligence I'd later build toward in AI native work.",
-        detail: "I validated the design with real analysts through Guardium's Sponsored User Program, running tasks and open-ended questions focused on building, scheduling, and editing rules.\n\nThe response was strongly positive on the core reframe. One participant said the rule builder made complex rules easier to handle because related properties were grouped together, with inline notifications guiding them without errors. Another called the ability to see which cases and categories would be impacted while setting up a rule a huge confidence builder; it meant not accidentally blocking something important. A third specifically called out the calendar preview as more flexible than simply picking start and end dates.\n\nNot every reaction was purely positive, and that's worth keeping in the story. One participant wanted the tool to go further: auto-suggest exclusions based on past cases, or let them quickly block common activity like failed logins with one action, rather than building every rule manually. At the time, that was outside scope. Looking back, it's a fairly direct preview of the AI assisted, pattern driven design work I've moved toward since.",
+          "Tested through IBM's Sponsored User Program. The real-time preview and calendar view were the clear wins, and one participant asked for exactly the kind of intelligence I'd later build toward in AI-native work.",
+        detail: "I validated the design with real analysts through Guardium's Sponsored User Program, running tasks and open-ended questions focused on building, scheduling, and editing rules.\n\nThe response was strongly positive on the core reframe. One participant said the rule builder made complex rules easier to handle because related properties were grouped together, with inline notifications guiding them without errors. Another called the ability to see which cases and categories would be impacted while setting up a rule a huge confidence builder; it meant not accidentally blocking something important. A third specifically called out the calendar preview as more flexible than simply picking start and end dates.\n\nNot every reaction was purely positive, and that's worth keeping in the story. One participant wanted the tool to go further: auto-suggest exclusions based on past cases, or let them quickly block common activity like failed logins with one action, rather than building every rule manually. At the time, that was outside scope. Looking back, it's a fairly direct preview of the AI-assisted, pattern-driven design work I've moved toward since.",
         exhibits: [
           { type: "image", src: "", caption: "Sponsored User Program findings, participant quotes on rule building and scheduling" },
           { type: "video", src: "", caption: "Project demo recording, request access to view", gated: true },
