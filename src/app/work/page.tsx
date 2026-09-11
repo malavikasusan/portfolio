@@ -11,7 +11,7 @@ export default function WorkIndex() {
   return (
     <div
       style={{
-        maxWidth: "720px",
+        maxWidth: "1000px",
         margin: "0 auto",
         padding: "var(--space-24) var(--page-gutter)",
       }}
@@ -128,7 +128,6 @@ export default function WorkIndex() {
                   fontSize: "var(--text-sm)",
                   color: "var(--color-muted)",
                   lineHeight: 1.65,
-                  maxWidth: "520px",
                 }}
               >
                 {cs.summary}

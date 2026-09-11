@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div
       style={{
-        maxWidth: "720px",
+        maxWidth: "1000px",
         margin: "0 auto",
         padding: "var(--space-24) var(--page-gutter)",
       }}

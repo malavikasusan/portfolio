@@ -21,7 +21,7 @@ export default function Nav() {
     >
       <nav
         style={{
-          maxWidth: "720px",
+          maxWidth: "1000px",
           margin: "0 auto",
           padding: "var(--space-6) var(--page-gutter)",
           display: "flex",

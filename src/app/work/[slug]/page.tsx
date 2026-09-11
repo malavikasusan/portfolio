@@ -4,6 +4,8 @@ import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
 import PhaseStepper from "@/components/PhaseStepper";
 import GatedState from "@/components/GatedState";
+import AutoplayVideo from "@/components/AutoplayVideo";
+import PasswordGate from "@/components/PasswordGate";
 import { getCaseStudy, caseStudies } from "@/lib/caseStudies";
 
 interface PageProps {
@@ -33,9 +35,10 @@ export default async function CaseStudyPage({ params }: PageProps) {
   const isSinglePage = cs.slug === "uxdrt";
 
   return (
+    <PasswordGate>
     <div
       style={{
-        maxWidth: "720px",
+        maxWidth: "1000px",
         margin: "0 auto",
         padding: "var(--space-24) var(--page-gutter)",
       }}
@@ -75,38 +78,51 @@ export default async function CaseStudyPage({ params }: PageProps) {
             fontSize: "var(--text-lg)",
             color: "var(--color-muted)",
             lineHeight: 1.7,
-            maxWidth: "520px",
             marginBottom: "var(--space-8)",
           }}
         >
           {cs.summary}
         </p>
 
-        {/* Hero image */}
-        <Image
-          src={`/images/case-studies/${cs.slug}-hero.png`}
-          alt={cs.title}
-          width={720}
-          height={405}
-          style={{ width: "100%", height: "auto", display: "block", marginBottom: "var(--space-6)" }}
-        />
+        {/* Hero image / video */}
+        {cs.slug === "guardium-exclusion-builder" ? (
+          <>
+            <AutoplayVideo
+              src="/images/case-studies/guardium-exclusion-builder-hero.mov"
+              style={{ width: "100%", display: "block" }}
+            />
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "var(--text-xs)",
+                color: "var(--color-muted)",
+                letterSpacing: "0.04em",
+                marginTop: "var(--space-2)",
+                marginBottom: "var(--space-4)",
+              }}
+            >
+              Quick peek at the redesigned exclusion (aka rule builder) — used by security analysts to suppress known or repetitive activity. Skip the read and watch the{" "}
+              <a
+                href="https://drive.google.com/file/d/1AjvjkSlqH4rQFoM_LrqdSHxYcbZAM7Nm/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--color-accent)", textDecoration: "underline" }}
+              >
+                product demo here
+              </a>
+              . PS: crank it to 1.25× — it hits different.
+            </p>
+          </>
+        ) : (
+          <Image
+            src={`/images/case-studies/${cs.slug}-hero.png`}
+            alt={cs.title}
+            width={720}
+            height={405}
+            style={{ width: "100%", height: "auto", display: "block", marginBottom: "var(--space-6)" }}
+          />
+        )}
 
-        {/* Metadata — role · timeline · status on one line */}
-        <p
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "var(--text-xs)",
-            color: "var(--color-muted)",
-            letterSpacing: "0.03em",
-            marginBottom: "var(--space-16)",
-          }}
-        >
-          {cs.role}
-          <span style={{ margin: "0 0.5em", opacity: 0.4 }}>·</span>
-          {cs.timeline}
-          <span style={{ margin: "0 0.5em", opacity: 0.4 }}>·</span>
-          {cs.status}
-        </p>
       </FadeIn>
 
       {/* ── Content area ── */}
@@ -140,7 +156,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
                   fontSize: "var(--text-base)",
                   color: "var(--color-muted)",
                   lineHeight: 1.75,
-                  maxWidth: "520px",
                 }}
               >
                 {cs.overview}
@@ -171,7 +186,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
                     fontSize: "var(--text-base)",
                     color: "var(--color-muted)",
                     lineHeight: 1.75,
-                    maxWidth: "520px",
                   }}
                 >
                   {cs.numbers}
@@ -185,5 +199,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
         )}
       </FadeIn>
     </div>
+    </PasswordGate>
   );
 }

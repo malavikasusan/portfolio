@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
+import AutoplayVideo from "@/components/AutoplayVideo";
+import CarouselBlock from "@/components/CarouselBlock";
 import type { Exhibit, Phase, PhaseSection } from "@/lib/caseStudies";
 
 interface PhaseStepperProps {
@@ -15,6 +17,10 @@ const statusLabel: Record<NonNullable<Phase["status"]>, string> = {
 };
 
 function ExhibitBlock({ ex }: { ex: Exhibit }) {
+  if (ex.type === "carousel" && ex.slides) {
+    return <CarouselBlock slides={ex.slides} caption={ex.caption} />;
+  }
+
   if (ex.gated) {
     return (
       <div
@@ -65,6 +71,30 @@ function ExhibitBlock({ ex }: { ex: Exhibit }) {
   }
 
   if (ex.type === "video") {
+    // Inline player for non-gated .mov / .mp4 files
+    if (!ex.gated && ex.src) {
+      return (
+        <figure style={{ margin: "0 0 40px" }}>
+          <AutoplayVideo
+            src={ex.src}
+            style={{ width: "100%", display: "block" }}
+            playbackRate={ex.playbackRate}
+          />
+          <figcaption
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "var(--text-xs)",
+              color: "var(--color-muted)",
+              letterSpacing: "0.04em",
+              marginTop: "var(--space-2)",
+            }}
+          >
+            {ex.caption}
+          </figcaption>
+        </figure>
+      );
+    }
+    // Gated or no-src: link pill
     return (
       <a
         href={ex.src || undefined}
@@ -101,7 +131,30 @@ function ExhibitBlock({ ex }: { ex: Exhibit }) {
     );
   }
 
-  // image / diagram — placeholder block
+  // image / diagram — real image or placeholder
+  if (ex.src) {
+    return (
+      <figure style={{ margin: "0 0 40px" }}>
+        <img
+          src={ex.src}
+          alt={ex.caption}
+          style={{ width: "100%", display: "block" }}
+        />
+        <figcaption
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "var(--text-xs)",
+            color: "var(--color-muted)",
+            letterSpacing: "0.04em",
+            marginTop: "var(--space-2)",
+          }}
+        >
+          {ex.caption}
+        </figcaption>
+      </figure>
+    );
+  }
+
   return (
     <div
       style={{
@@ -112,6 +165,7 @@ function ExhibitBlock({ ex }: { ex: Exhibit }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        marginBottom: "40px",
       }}
     >
       <span
@@ -122,7 +176,7 @@ function ExhibitBlock({ ex }: { ex: Exhibit }) {
           letterSpacing: "0.04em",
         }}
       >
-        {ex.type} · {ex.src}
+        {ex.type} · {ex.caption}
       </span>
     </div>
   );
@@ -266,6 +320,7 @@ export default function PhaseStepper({ phases }: PhaseStepperProps) {
                   <div
                     style={{
                       paddingLeft: "calc(1.5rem + var(--space-4))",
+                      paddingRight: "calc(1.125rem + var(--space-4))",
                       paddingBottom: "var(--space-8)",
                     }}
                   >
@@ -280,35 +335,35 @@ export default function PhaseStepper({ phases }: PhaseStepperProps) {
                                 fontSize: "var(--text-sm)",
                                 fontWeight: 600,
                                 color: "var(--color-text)",
-                                marginBottom: "var(--space-4)",
+                                marginBottom: "4px",
                                 letterSpacing: "-0.01em",
                               }}
                             >
                               {section.title}
                             </p>
 
-                            {/* Exhibit — paired with this section */}
-                            <ExhibitBlock ex={section.exhibit} />
-
-                            {/* Text — below the exhibit */}
+                            {/* Text — above the exhibit */}
                             <div
                               style={{
                                 fontSize: "var(--text-sm)",
                                 color: "var(--color-muted)",
                                 lineHeight: 1.75,
-                                marginTop: "var(--space-4)",
+                                marginBottom: "var(--space-4)",
                               }}
                             >
                               <ReactMarkdown
                                 components={{
                                   p: ({ children }) => (
-                                    <p style={{ marginBottom: "var(--space-3)" }}>{children}</p>
+                                    <p style={{ marginBottom: "4px" }}>{children}</p>
                                   ),
                                 }}
                               >
                                 {section.text}
                               </ReactMarkdown>
                             </div>
+
+                            {/* Exhibit — after the text (optional) */}
+                            {section.exhibit && <ExhibitBlock ex={section.exhibit} />}
                           </div>
                         ))}
                       </div>
@@ -436,22 +491,7 @@ export default function PhaseStepper({ phases }: PhaseStepperProps) {
                             }}
                           >
                             {phase.exhibits.map((ex, ei) => (
-                              <figure key={ei} style={{ margin: 0 }}>
-                                <ExhibitBlock ex={ex} />
-                                {!ex.gated && ex.type !== "video" && ex.caption && (
-                                  <figcaption
-                                    style={{
-                                      fontSize: "var(--text-xs)",
-                                      color: "var(--color-muted)",
-                                      marginTop: "var(--space-2)",
-                                      fontFamily: "var(--font-mono)",
-                                      letterSpacing: "0.02em",
-                                    }}
-                                  >
-                                    {ex.caption}
-                                  </figcaption>
-                                )}
-                              </figure>
+                              <ExhibitBlock key={ei} ex={ex} />
                             ))}
                           </div>
                         )}

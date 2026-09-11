@@ -10,7 +10,7 @@ export default function Footer() {
     >
       <div
         style={{
-          maxWidth: "720px",
+          maxWidth: "1000px",
           margin: "0 auto",
           padding: "var(--space-8) var(--page-gutter)",
           display: "flex",

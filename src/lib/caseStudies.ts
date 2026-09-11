@@ -1,17 +1,24 @@
 // ─── Data types ──────────────────────────────────────────────────────────────
 
+export interface CarouselSlide {
+  src: string;
+  caption: string;
+}
+
 export interface Exhibit {
-  type: "image" | "diagram" | "video";
+  type: "image" | "diagram" | "video" | "carousel";
   src: string;
   caption: string;
   gated?: boolean;
+  playbackRate?: number;
+  slides?: CarouselSlide[]; // used when type === "carousel"
 }
 
 export interface PhaseSection {
   id: string;
   title: string;
   text: string;
-  exhibit: Exhibit;
+  exhibit?: Exhibit;
 }
 
 export interface Phase {
@@ -21,7 +28,7 @@ export interface Phase {
   detail?: string;          // full markdown content, shown expanded (standard phases)
   exhibits?: Exhibit[];
   sections?: PhaseSection[]; // paired layout: each section has its own exhibit
-  status?: "in-progress";
+  status?: "in-progress" | "done";
 }
 
 export interface CaseStudy {
@@ -44,7 +51,7 @@ export const caseStudies: CaseStudy[] = [
   // ── 1. AI Summarization ───────────────────────────────────────────────────
   {
     slug: "ai-summarization",
-    title: "AI summarization feature for Maximo",
+    title: "AI summarization feature for Maximo 9.3",
     role: "Design owner, AI Strategy & Discovery Squad | IBM Maximo Manage",
     timeline: "Jun 2026 – Present",
     status: "In progress",
@@ -185,9 +192,18 @@ What this project demonstrates:
         title: "Designing the Validation Plan",
         summary:
           "Before any prototype went in front of a user, I wrote the plan: what we were testing, how we'd measure it, and what success looked like.",
-        detail: "When I joined the team, several designers were shipping a growing set of agentic capabilities for the Maximo Assistant. None of it had been validated with real users. My first owned project was closing that gap.\n\nI started by writing a proper validation plan, not just a script. That meant defining:\n\nThe goal. Understand whether the assistant behaves the way users expect when completing common asset management tasks. Does it surface the right information at the right time? Does it help people make confident decisions? Does it actually fit into their workflow, or does it feel bolted on?\n\nThe scope. Every feature currently planned for 9.2, plus a few post-9.2 items like RAG based document search, tested early so we'd have signal before they were fully built.\n\nThe method. Moderated sessions over Teams, using a clickable Figma prototype, so we could watch people think out loud rather than just collect survey answers.\n\nThe tasks. Five scenarios that built on each other rather than testing features in isolation: launch the assistant and take a tour, run a simple query that returns a large list of assets, investigate the condition of a single asset, follow up with a general knowledge question, then repeat the condition check across multiple assets. Each task got harder and more realistic than the last.\n\nThe metrics. Task success without moderator help, a post task trust rating on a 7 point scale, and separate single item measures for perceived usefulness and effort. I wanted numbers we could compare across rounds, not just anecdotes.\n\nI ran this with two teammates, Jen and Danial, rotating facilitator and note taker roles across sessions so no single person's fatigue or bias shaped every transcript.",
-        exhibits: [
-          { type: "image", src: "", caption: "Validation plan, objectives, methodology, and task scenarios" },
+        sections: [
+          {
+            id: "methodology-context",
+            title: "Designing the validation plan",
+            text: "When I joined the team, several designers were shipping a growing set of agentic capabilities for the Maximo Assistant. None of it had been validated with real users. My first owned project was closing that gap.\n\nI started by writing a proper validation plan, not just a script. That meant defining:",
+            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/validation%20plan.png", caption: "Validation plan — objectives, methodology, and task scenarios." },
+          },
+          {
+            id: "methodology-detail",
+            title: "What the plan covered",
+            text: "**The goal** — Understand whether the assistant behaves the way users expect when completing common asset management tasks. Does it surface the right information at the right time? Does it help people make confident decisions? Does it actually fit into their workflow, or does it feel bolted on?\n\n**The scope** — Every feature currently planned for 9.2, plus a few post-9.2 items like RAG based document search, tested early so we'd have signal before they were fully built.\n\n**The method** — Moderated sessions over Teams, using a clickable Figma prototype, so we could watch people think out loud rather than just collect survey answers.\n\n**The tasks** — Five scenarios that built on each other rather than testing features in isolation: launch the assistant and take a tour, run a simple query that returns a large list of assets, investigate the condition of a single asset, follow up with a general knowledge question, then repeat the condition check across multiple assets. Each task got harder and more realistic than the last.\n\n**The metrics** — Task success without moderator help, a post task trust rating on a 7 point scale, and separate single item measures for perceived usefulness and effort. I wanted numbers we could compare across rounds, not just anecdotes.\n\nI ran this with two teammates, Jen and Danial, rotating facilitator and note taker roles across sessions so no single person's fatigue or bias shaped every transcript.",
+          },
         ],
       },
       {
@@ -219,7 +235,6 @@ What this project demonstrates:
         exhibits: [
           { type: "image", src: "", caption: "Baseline ratings, finding data (5.6/7) and understanding asset condition (4/7)" },
         ],
-        sta
       },
       {
         id: "findings",
@@ -325,23 +340,32 @@ This case study isn't about building that system; it's about what rigorous, high
   // ── 4. Guardium Exclusion Builder ────────────────────────────────────────
   {
     slug: "guardium-exclusion-builder",
-    title: "Redesigning the Exclusion Builder, IBM Guardium Data Protection",
+    title: "Exclusion Builder: Feature redesign for Guardium",
     role: "UX Design Lead, Protect squad | IBM Data Security — Vulnerability Assessment and Active Threat Analytics",
     timeline: "Sept – Oct 2025",
     status: "Delivered",
     gated: false,
     summary:
-      "Analysts needed a way to suppress known safe activity from generating threat cases, without losing control over what got blocked or why. I redesigned the exclusion rule builder inside Guardium's Active Threat Analytics from a rigid, all-inputs form into a guided, real-time, explainable builder, then supported it through to dev handoff and validated it with real users.",
+      "Analysts needed a way to suppress known safe activity from generating threat cases, without losing control over what got blocked or why. I launched the exclusion rule builder inside Guardium's Active Threat Analytics from a rigid, all-inputs form into a guided, real-time, explainable builder, then supported it through to dev handoff and validated it with real users.",
     phases: [
       {
         id: "context",
-        title: "Context and the Problem",
+        title: "Context and the problem",
         summary:
           "As Design Lead for Protect, I covered both Vulnerability Assessment and Active Threat Analytics. This case study covers one capability in depth: the Exclusion Builder.",
-        detail: "I was the UX lead for the Protect squad within Guardium Data Protection, covering both Vulnerability Assessment and Analytics. Active Threat Analytics generates cases, structured folders of suspicious activity like repeated failed logins, SQL injections, or data leaks, so analysts can quickly investigate and respond to real threats.\n\nNot every flagged activity is actually a threat. Analysts needed a way to create exclusion rules, suppressing known safe or repetitive activity (an admin account running routine maintenance, for example) so it stopped generating noise and let them focus on what mattered.\n\nI defined the problem by auditing customer RFE tickets on Jira and running a heuristic evaluation of the legacy tool. Four issues came up consistently:\n\n1. **No flexible scheduling** — Rules ran indefinitely once created. Analysts had no option for a weekly, monthly, or quarterly schedule.\n2. **No preview of impact** — Analysts couldn't see which cases or dependencies a rule would affect before committing to it.\n3. **No traceability** — Once a rule existed, there was no record of why it was created or what it had actually affected over time.\n4. **No duplicate protection** — The system let people create the same exclusion repeatedly without warning, wasting effort and creating redundant rules.",
-        exhibits: [
-          { type: "image", src: "", caption: "Guardium Data Protection, main dashboard and Protect squad scope, Vulnerability Assessment and Advanced Analytics" },
-          { type: "image", src: "", caption: "Active Threat Analytics case dashboard, cases and risk signals" },
+        sections: [
+          {
+            id: "context-ia",
+            title: "My role",
+            text: "I was the UX lead for the Protect squad within Guardium Data Protection, covering both Vulnerability Assessment and Analytics. Active Threat Analytics generates cases, structured folders of suspicious activity like repeated failed logins, SQL injections, or data leaks, so analysts can quickly investigate and respond to real threats.",
+            exhibit: { type: "image", src: "/images/case-studies/guardium-exclusion-builder/IA.png", caption: "Information architecture of Guardium Data Protection, showing where Active Threat Analytics sits within the Protect squad." },
+          },
+          {
+            id: "context-problem",
+            title: "The problem",
+            text: "Not every flagged activity is actually a threat. Analysts needed a way to create exclusion rules, suppressing known safe or repetitive activity (an admin account running routine maintenance, for example) so it stopped generating noise and let them focus on what mattered.\n\nI defined the problem by auditing customer RFE tickets on Jira and running a heuristic evaluation of the legacy tool.",
+            exhibit: { type: "image", src: "/images/case-studies/ATA-problem-statement.png", caption: "Summary of painpoints identified from customer tickets and our study of the legacy tool." },
+          },
         ],
       },
       {
@@ -349,24 +373,45 @@ This case study isn't about building that system; it's about what rigorous, high
         title: "Redesigning the Builder",
         summary:
           "The legacy tool forced people to start with dates and see every field at once. I rebuilt it as a linear, one-input-per-row flow with a real-time preview of exactly what the rule would affect.",
-        detail: "The legacy condition builder had a specific set of problems: it forced users to start with dates, which set the wrong mental model from the first step. It didn't support multiple values or show dependencies between fields. Every rule was a set of isolated inputs, not one coherent idea. And the data grid exposed too much detail to read as a natural summary.\n\nI reframed the whole model around a few principles: show only the properties relevant to what someone's actually building, reveal one input at a time so people build precise exclusions instead of guessing, and make the impact of a rule visible before it's applied, not after.\n\nConcretely, that meant starting the flow with a name and description, so intent gets defined before any technical detail like IPs or databases enters the picture. The rule itself moved from a cluttered all-inputs layout to a linear, one-input-per-row builder, with a property automatically disabled once it's used, so invalid entries aren't possible in the first place. Dependency logic got explained inline, through tooltips and example entries, instead of leaving people to infer it.\n\nThe biggest trust builder was a real-time preview: as someone built a condition, they could immediately see which existing cases matched it, with a checkbox to close those cases instantly and links to inspect them first. That single addition turned the builder from something you'd hesitate to use into something you could commit to with confidence.",
-        exhibits: [
-          { type: "image", src: "", caption: "Legacy exclusion builder, all inputs exposed at once, no dependency logic" },
-          { type: "image", src: "", caption: "Redesigned linear builder, one input per row with real-time case preview" },
+        sections: [
+          {
+            id: "redesign-legacy",
+            title: "The problem with the legacy builder",
+            text: "The legacy condition builder had a specific set of problems: it forced users to start with dates, which set the wrong mental model from the first step. It didn't support multiple values or show dependencies between fields. Every rule was a set of isolated inputs, not one coherent idea. And the data grid exposed too much detail to read as a natural summary.",
+            exhibit: { type: "image", src: "/images/case-studies/guardium-exclusion-builder/Legacy builder.png", caption: "Legacy exclusion builder — all inputs exposed at once, no dependency logic, date-first mental model." },
+          },
+          {
+            id: "redesign-solution",
+            title: "The redesign",
+            text: "I reframed the whole model around a few principles: show only the properties relevant to what someone's actually building, reveal one input at a time so people build precise exclusions instead of guessing, and make the impact of a rule visible before it's applied, not after.\n\nConcretely, that meant starting the flow with a name and description, so intent gets defined before any technical detail like IPs or databases enters the picture. The rule itself moved from a cluttered all-inputs layout to a linear, one-input-per-row builder, with a property automatically disabled once it's used, so invalid entries aren't possible in the first place. Dependency logic got explained inline, through tooltips and example entries, instead of leaving people to infer it.",
+            exhibit: { type: "image", src: "/images/case-studies/guardium-exclusion-builder/solutions.png", caption: "Redesigned linear builder — one input per row, properties disabled once used, dependency logic explained inline." },
+          },
+          {
+            id: "redesign-preview",
+            title: "Real-time rule impact preview",
+            text: "The biggest trust builder was a real-time preview: as someone built a condition, they could immediately see which existing cases matched it, with a checkbox to close those cases instantly and links to inspect them first. That single addition turned the builder from something you'd hesitate to use into something you could commit to with confidence.",
+          },
         ],
-        status: "done",
       },
       {
         id: "scheduling",
         title: "Scheduling and Explainability",
         summary:
           "Rules needed to run on a schedule, not just indefinitely, and analysts needed to understand exactly what they'd built without reading raw logic.",
-        detail: "Once the core builder worked, the next gap was time. By default, a rule now runs indefinitely from today, so most people don't have to think about scheduling at all, but once someone defines a period, repeat options like weekly, monthly, quarterly, or a fully custom recurrence become available. A calendar-style preview highlights the exact days a rule will be active, and the interface uses natural language phrasing wherever possible, something like 'this repeats on the first Sunday of every month' rather than a raw rule string.\n\nExplainability mattered just as much after a rule was saved as while it was being built. The language used during creation carries through to the saved rule's summary, so an analyst reviewing an existing exclusion sees the same terms they'd use to build a new one. Expanding a row in the exclusion list shows a read-only summary reflecting exactly what was built, condition, description, and repeat pattern together, so anyone (including someone who didn't create the rule) can understand it later. A filter fly-out and a simple enable and disable toggle rounded out day-to-day management.",
-        exhibits: [
-          { type: "image", src: "", caption: "Recurrence model, calendar preview and natural language phrasing for repeat patterns" },
-          { type: "image", src: "", caption: "Saved exclusion list, read-only summary matching the language used during creation" },
+        sections: [
+          {
+            id: "scheduling-recurrence",
+            title: "Scheduling",
+            text: "Once the core builder worked, the next gap was time. By default, a rule now runs indefinitely from today, so most people don't have to think about scheduling at all, but once someone defines a period, repeat options like weekly, monthly, quarterly, or a fully custom recurrence become available. A calendar-style preview highlights the exact days a rule will be active, and the interface uses natural language phrasing wherever possible, something like 'this repeats on the first Sunday of every month' rather than a raw rule string.",
+            exhibit: { type: "video", src: "/images/case-studies/guardium-exclusion-builder/scheduler feature.mp4.mov", caption: "Scheduler feature — OOTB recurrence options and calendar preview, so analysts could define when a rule runs and see exactly which days it would trigger.", playbackRate: 1.5 },
+          },
+          {
+            id: "scheduling-explainability",
+            title: "Explainability",
+            text: "Explainability mattered just as much after a rule was saved as while it was being built. The language used during creation carries through to the saved rule's summary, so an analyst reviewing an existing exclusion sees the same terms they'd use to build a new one. Expanding a row in the exclusion list shows a read-only summary reflecting exactly what was built, condition, description, and repeat pattern together, so anyone (including someone who didn't create the rule) can understand it later. A filter fly-out and a simple enable and disable toggle rounded out day-to-day management.",
+            exhibit: { type: "image", src: "/images/case-studies/guardium-exclusion-builder/Explainability.png", caption: "Saved exclusion list with read-only summary matching the components used during creation, with added enhancements like filters, toggle and modify actions." },
+          },
         ],
-        status: "done",
       },
       {
         id: "handoff",
@@ -375,22 +420,50 @@ This case study isn't about building that system; it's about what rigorous, high
           "Structured Figma phases, fully clickable prototypes, and active collaboration that turned design questions into tracked engineering work.",
         detail: "I organized the Figma file into clear phases, exploration, prototype, and redlines, so the work stayed reusable rather than becoming one sprawling file. Delivery included fully clickable prototypes with an intro, a stated problem, and a scripted walkthrough of the workflow, so anyone reviewing it (PM, engineering, or a customer) could see the reasoning, not just the screens.\n\nDevelopment support ran through active Slack collaboration. When a design question came up mid-build, I converted it into a tracked Jira enhancement rather than letting it stay a side conversation, and kept redlines updated as the design evolved. Dev annotations covered logic, content rules, edge cases, empty states, and behavioral guidelines in detail; the goal was that engineering shouldn't have to guess at intent on anything ambiguous.",
         exhibits: [
-          { type: "image", src: "", caption: "Figma file structure, exploration through redlines, and detailed dev annotations" },
-          { type: "image", src: "", caption: "Slack collaboration and a resulting Jira enhancement ticket" },
+          { type: "image", src: "/images/case-studies/guardium-exclusion-builder/Dev handoff.png", caption: "Figma file structure, exploration through redlines, and detailed dev annotations." },
         ],
-        status: "done",
       },
       {
         id: "validation",
         title: "Validating with Real Analysts",
         summary:
           "Tested through IBM's Sponsored User Program. The real-time preview and calendar view were the clear wins, and one participant asked for exactly the kind of intelligence I'd later build toward in AI-native work.",
-        detail: "I validated the design with real analysts through Guardium's Sponsored User Program, running tasks and open-ended questions focused on building, scheduling, and editing rules.\n\nThe response was strongly positive on the core reframe. One participant said the rule builder made complex rules easier to handle because related properties were grouped together, with inline notifications guiding them without errors. Another called the ability to see which cases and categories would be impacted while setting up a rule a huge confidence builder; it meant not accidentally blocking something important. A third specifically called out the calendar preview as more flexible than simply picking start and end dates.\n\nNot every reaction was purely positive, and that's worth keeping in the story. One participant wanted the tool to go further: auto-suggest exclusions based on past cases, or let them quickly block common activity like failed logins with one action, rather than building every rule manually. At the time, that was outside scope. Looking back, it's a fairly direct preview of the AI-assisted, pattern-driven design work I've moved toward since.",
-        exhibits: [
-          { type: "image", src: "", caption: "Sponsored User Program findings, participant quotes on rule building and scheduling" },
-          { type: "video", src: "", caption: "Project demo recording, request access to view", gated: true },
+        sections: [
+          {
+            id: "validation-findings",
+            title: "What we heard",
+            text: "I validated the design with real analysts through Guardium's Sponsored User Program, running tasks and open-ended questions focused on building, scheduling, and editing rules.\n\nThe response was strongly positive on the core reframe. One participant said the rule builder made complex rules easier to handle because related properties were grouped together, with inline notifications guiding them without errors. Another called the ability to see which cases and categories would be impacted while setting up a rule a huge confidence builder; it meant not accidentally blocking something important. A third specifically called out the calendar preview as more flexible than simply picking start and end dates.",
+            exhibit: { type: "image", src: "/images/case-studies/guardium-exclusion-builder/resarch validation.png", caption: "Sponsored User Program findings, participant quotes on rule building and scheduling." },
+          },
+          {
+            id: "validation-lookahead",
+            title: "What it pointed toward",
+            text: "Not every reaction was purely positive, and that's worth keeping in the story. One participant wanted the tool to go further: auto-suggest exclusions based on past cases, or let them quickly block common activity like failed logins with one action, rather than building every rule manually. At the time, that was outside scope. Looking back, it's a fairly direct preview of the AI-assisted, pattern-driven design work I've moved toward since.",
+          },
         ],
-        status: "done",
+      },
+      {
+        id: "beyond-exclusions",
+        title: "Beyond Exclusions: Threat Analytics Landscape",
+        summary:
+          "Similar to Exclusions, I owned end-to-end design of other areas in the release — Case Dashboard, Case Details, Risk Spotter, Vulnerability Assessments, and ATA Setup.",
+        sections: [
+          {
+            id: "beyond-exclusions-overview",
+            title: "Beyond Exclusions: Threat analytics landscape",
+            text: "Similar to Exclusions, I owned end to end design of other areas such as the Case Dashboard, Case details, Risk Spotter, Vulnerability assessments and ATA setup for the v.12.2.1 release. The carousel shows a few screens of before and after across these areas.",
+            exhibit: {
+              type: "carousel",
+              src: "",
+              caption: "Before and after screens across Case Dashboard, Case Details, Risk Spotter, Vulnerability Assessments and ATA Setup.",
+              slides: [
+                { src: "/images/case-studies/guardium-exclusion-builder/Dashboard1.png", caption: "Case Dashboard" },
+                { src: "/images/case-studies/guardium-exclusion-builder/Case details.png", caption: "Case Details" },
+                { src: "/images/case-studies/guardium-exclusion-builder/VA.png", caption: "Vulnerability Assessments" },
+              ],
+            },
+          },
+        ],
       },
     ],
   },
