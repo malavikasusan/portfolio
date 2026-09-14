@@ -30,6 +30,7 @@ export default function PasswordGate({ children }: PasswordGateProps) {
 
   return (
     <div
+      className="password-gate-layout"
       style={{
         maxWidth: "900px",
         margin: "0 auto",
@@ -40,8 +41,11 @@ export default function PasswordGate({ children }: PasswordGateProps) {
         alignItems: "center",
       }}
     >
-      {/* Tenor GIF — left column */}
-      <div style={{ width: "100%", aspectRatio: "1.41593", overflow: "hidden", position: "sticky", top: "var(--space-24)" }}>
+      {/* Tenor GIF — left column (bottom on mobile) */}
+      <div
+        className="password-gate-gif"
+        style={{ width: "100%", aspectRatio: "1.41593", overflow: "hidden", position: "sticky", top: "var(--space-24)" }}
+      >
         <iframe
           src="https://tenor.com/embed/16109385"
           allowFullScreen
@@ -50,7 +54,7 @@ export default function PasswordGate({ children }: PasswordGateProps) {
         />
       </div>
 
-      {/* Form — right column */}
+      {/* Form — right column (top on mobile) */}
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
 
         {/* Name + reason combined */}

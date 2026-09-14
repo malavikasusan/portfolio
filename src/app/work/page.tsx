@@ -75,12 +75,14 @@ export default function WorkIndex() {
                   {cs.title}
                 </span>
                 <span
+                  className="cs-timeline"
                   style={{
                     fontFamily: "var(--font-mono)",
                     fontSize: "var(--text-xs)",
                     color: "var(--color-muted)",
                     whiteSpace: "nowrap",
                     flexShrink: 0,
+                    textAlign: "right",
                   }}
                 >
                   {cs.timeline}

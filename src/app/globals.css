@@ -160,6 +160,27 @@ img, svg {
     /* Tighten the outer gutter */
     --page-gutter: var(--space-4);
   }
+
+  /* Life carousel — stack vertically: text first, then image */
+  .life-carousel-section {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Case study list — allow timeline to wrap on narrow screens */
+  .cs-timeline {
+    white-space: normal !important;
+  }
+
+  /* Password gate — stack vertically: gif first, then form */
+  .password-gate-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .password-gate-gif {
+    order: -1;
+    position: static !important;
+    aspect-ratio: 1.41593;
+  }
 }
 
 /* ─── Profile photo — inline hover enlarge ──────────────────────────────────── */

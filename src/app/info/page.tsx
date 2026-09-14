@@ -81,6 +81,7 @@ export default function InfoPage() {
       {/* ── Life carousel ── */}
       <FadeIn delay={0.14}>
         <section
+          className="life-carousel-section"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
