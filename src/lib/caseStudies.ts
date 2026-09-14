@@ -484,7 +484,7 @@ Expected efficiency gains for teams adopting this process:
       },
       {
         id: "redesign",
-        title: "Redesigning the Builder",
+        title: "Redesigning the builder",
         summary:
           "The legacy tool forced people to start with dates and see every field at once. I rebuilt it as a linear, one-input-per-row flow with a real-time preview of exactly what the rule would affect.",
         sections: [
@@ -509,7 +509,7 @@ Expected efficiency gains for teams adopting this process:
       },
       {
         id: "scheduling",
-        title: "Scheduling and Explainability",
+        title: "Scheduling and explainability",
         summary:
           "Rules needed to run on a schedule, not just indefinitely, and analysts needed to understand exactly what they'd built without reading raw logic.",
         sections: [
@@ -529,7 +529,7 @@ Expected efficiency gains for teams adopting this process:
       },
       {
         id: "handoff",
-        title: "Design to Dev Handoff",
+        title: "Design to dev handoff",
         summary:
           "Structured Figma phases, fully clickable prototypes, and active collaboration that turned design questions into tracked engineering work.",
         detail: "I organized the Figma file into clear phases, exploration, prototype, and redlines, so the work stayed reusable rather than becoming one sprawling file. Delivery included fully clickable prototypes with an intro, a stated problem, and a scripted walkthrough of the workflow, so anyone reviewing it (PM, engineering, or a customer) could see the reasoning, not just the screens.\n\nDevelopment support ran through active Slack collaboration. When a design question came up mid-build, I converted it into a tracked Jira enhancement rather than letting it stay a side conversation, and kept redlines updated as the design evolved. Dev annotations covered logic, content rules, edge cases, empty states, and behavioral guidelines in detail; the goal was that engineering shouldn't have to guess at intent on anything ambiguous.",
@@ -539,7 +539,7 @@ Expected efficiency gains for teams adopting this process:
       },
       {
         id: "validation",
-        title: "Validating with Real Analysts",
+        title: "Validating with real analysts",
         summary:
           "Tested through IBM's Sponsored User Program. The real-time preview and calendar view were the clear wins, and one participant asked for exactly the kind of intelligence I'd later build toward in AI-native work.",
         sections: [
@@ -558,7 +558,7 @@ Expected efficiency gains for teams adopting this process:
       },
       {
         id: "beyond-exclusions",
-        title: "Beyond Exclusions: Threat Analytics Landscape",
+        title: "Beyond exclusions: Threat analytics landscape",
         summary:
           "Similar to Exclusions, I owned end-to-end design of other areas in the release — Case Dashboard, Case Details, Risk Spotter, Vulnerability Assessments, and ATA Setup.",
         sections: [
