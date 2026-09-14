@@ -124,10 +124,73 @@ img, svg {
   transition: color var(--dur-fast) var(--ease-out);
 }
 
+/* ─── Orange hyperlinks with diagonal arrow on hover ────────────────────────── */
+.link-accent {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--dur-fast) var(--ease-out);
+}
+
+.link-accent::after {
+  content: " ↗";
+  display: inline;
+  font-style: normal;
+  opacity: 0;
+  transform: translate(-3px, 3px);
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+  display: inline-block;
+}
+
+.link-accent:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+.link-accent:hover::after {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
 /* ─── Responsive: narrow viewports ──────────────────────────────────────────── */
 @media (max-width: 600px) {
   :root {
     /* Tighten the outer gutter */
     --page-gutter: var(--space-4);
   }
+}
+
+/* ─── Profile photo — inline hover enlarge ──────────────────────────────────── */
+.profile-photo {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 0.5px solid transparent;
+  position: relative;
+  top: -0.05em;
+  transform: scale(1.5);
+  transform-origin: left center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  transition:
+    transform var(--dur-medium) var(--ease-out),
+    border-color var(--dur-medium) var(--ease-out),
+    box-shadow var(--dur-medium) var(--ease-out);
+  cursor: default;
+  z-index: 1;
+}
+
+.profile-photo:hover {
+  /* scale up and push right so the expanded image clears the text */
+  transform: scale(7) translateX(55%);
+  transform-origin: left center;
+  z-index: 10;
+  border-color: color-mix(in srgb, var(--color-accent) 60%, transparent);
+  box-shadow:
+    0 0 0 0.05px color-mix(in srgb, var(--color-accent) 60%, transparent),
+    0 0 12px 4px color-mix(in srgb, var(--color-accent) 55%, transparent),
+    0 0 24px 8px color-mix(in srgb, var(--color-accent) 25%, transparent);
 }

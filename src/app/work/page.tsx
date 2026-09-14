@@ -93,7 +93,7 @@ export default function WorkIndex() {
                   display: "flex",
                   gap: "var(--space-4)",
                   alignItems: "center",
-                  marginBottom: "var(--space-4)",
+                  marginBottom: "var(--space-2)",
                 }}
               >
                 <span
@@ -142,6 +142,61 @@ export default function WorkIndex() {
             borderTop: "1px solid var(--color-border)",
           }}
         />
+      </div>
+
+      {/* ── Earlier work + site note ── */}
+      <div
+        style={{
+          marginTop: "var(--space-3)",
+          paddingTop: "var(--space-8)",
+        }}
+      >
+        {/* Site note — italic aside first */}
+        <p
+          style={{
+            fontSize: "var(--text-xs)",
+            fontStyle: "italic",
+            color: "var(--color-muted)",
+            lineHeight: 1.75,
+            marginBottom: "var(--space-8)",
+            opacity: 0.8,
+          }}
+        >
+          A note on how this site was built: this is the first project I've designed and published using AI-native tools end to end, built with an AI coding assistant rather than my usual Figma-first process.
+        </p>
+
+        {/* Earlier work */}
+        <p
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "var(--text-xs)",
+            color: "var(--color-muted)",
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
+            marginBottom: "var(--space-2)",
+          }}
+        >
+          Earlier work
+        </p>
+        <p
+          style={{
+            fontSize: "var(--text-sm)",
+            color: "var(--color-muted)",
+            lineHeight: 1.75,
+            marginBottom: "var(--space-2)",
+          }}
+        >
+          Before AI-native design became my playground, I spent years designing digital products from the interface up.
+        </p>
+        <a
+          href="https://portfoliomalavika.framer.website/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-accent"
+          style={{ fontSize: "var(--text-sm)", fontWeight: 500 }}
+        >
+          Explore my earlier work
+        </a>
       </div>
     </div>
   );

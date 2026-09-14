@@ -287,22 +287,29 @@ export default function PhaseStepper({ phases }: PhaseStepperProps) {
                 )}
               </div>
 
-              {/* Toggle indicator */}
+              {/* Toggle indicator — chevron */}
               <motion.span
-                animate={{ rotate: isOpen ? 45 : 0 }}
+                animate={{ rotate: isOpen ? 180 : 0 }}
                 transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   display: "block",
-                  fontSize: "var(--text-lg)",
-                  fontWeight: 300,
                   color: "var(--color-muted)",
                   lineHeight: 1,
                   userSelect: "none",
                   marginTop: "2px",
+                  flexShrink: 0,
                 }}
                 aria-hidden
               >
-                +
+                <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
+                  <path
+                    d="M2 4l4 4 4-4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </motion.span>
             </button>
 
@@ -330,17 +337,19 @@ export default function PhaseStepper({ phases }: PhaseStepperProps) {
                         {phase.sections.map((section: PhaseSection) => (
                           <div key={section.id}>
                             {/* Subheading */}
-                            <p
-                              style={{
-                                fontSize: "var(--text-sm)",
-                                fontWeight: 600,
-                                color: "var(--color-text)",
-                                marginBottom: "4px",
-                                letterSpacing: "-0.01em",
-                              }}
-                            >
-                              {section.title}
-                            </p>
+                            {section.title && (
+                              <p
+                                style={{
+                                  fontSize: "var(--text-sm)",
+                                  fontWeight: 600,
+                                  color: "var(--color-text)",
+                                  marginBottom: "4px",
+                                  letterSpacing: "-0.01em",
+                                }}
+                              >
+                                {section.title}
+                              </p>
+                            )}
 
                             {/* Text — above the exhibit */}
                             <div
@@ -388,6 +397,16 @@ export default function PhaseStepper({ phases }: PhaseStepperProps) {
                               p: ({ children }) => (
                                 <p style={{ marginBottom: "var(--space-4)" }}>{children}</p>
                               ),
+                              a: ({ href, children }) => (
+                                <a
+                                  href={href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  style={{ color: "var(--color-accent)", textDecoration: "underline" }}
+                                >
+                                  {children}
+                                </a>
+                              ),
                               strong: ({ children }) => (
                                 <strong style={{ fontWeight: 600, color: "var(--color-text)" }}>{children}</strong>
                               ),
@@ -420,7 +439,7 @@ export default function PhaseStepper({ phases }: PhaseStepperProps) {
                                 );
                               },
                               ul: ({ children }) => (
-                                <ul style={{ paddingLeft: "var(--space-6)", marginBottom: "var(--space-4)" }}>{children}</ul>
+                                <ul style={{ listStyle: "disc", paddingLeft: "var(--space-6)", marginBottom: "var(--space-4)" }}>{children}</ul>
                               ),
                               li: ({ children }) => {
                                 // Pain-point items: li > [strong "Title", " — body text..."]
@@ -472,7 +491,7 @@ export default function PhaseStepper({ phases }: PhaseStepperProps) {
                                   );
                                 }
                                 return (
-                                  <li style={{ marginBottom: "var(--space-1)" }}>{children}</li>
+                                  <li style={{ display: "list-item", marginBottom: "var(--space-1)" }}>{children}</li>
                                 );
                               },
                             }}

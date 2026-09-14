@@ -31,9 +31,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
   if (!cs) notFound();
 
-  // UXDRT is a single-page summary (no phase stepper)
-  const isSinglePage = cs.slug === "uxdrt";
-
   return (
     <PasswordGate>
     <div
@@ -85,7 +82,29 @@ export default async function CaseStudyPage({ params }: PageProps) {
         </p>
 
         {/* Hero image / video */}
-        {cs.slug === "guardium-exclusion-builder" ? (
+        {cs.heroVideo ? (
+          <>
+            <AutoplayVideo
+              src={cs.heroVideo}
+              playbackRate={cs.heroPlaybackRate}
+              style={{ width: "100%", display: "block", marginBottom: cs.heroCaption ? "var(--space-2)" : "var(--space-6)" }}
+            />
+            {cs.heroCaption && (
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "var(--text-xs)",
+                  color: "var(--color-muted)",
+                  letterSpacing: "0.04em",
+                  marginTop: 0,
+                  marginBottom: "var(--space-6)",
+                }}
+              >
+                {cs.heroCaption}
+              </p>
+            )}
+          </>
+        ) : cs.slug === "guardium-exclusion-builder" ? (
           <>
             <AutoplayVideo
               src="/images/case-studies/guardium-exclusion-builder-hero.mov"
@@ -115,7 +134,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           </>
         ) : (
           <Image
-            src={`/images/case-studies/${cs.slug}-hero.png`}
+            src={cs.heroImage ?? `/images/case-studies/${cs.slug}-hero.png`}
             alt={cs.title}
             width={720}
             height={405}
@@ -129,72 +148,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
       <FadeIn delay={0.1}>
         {cs.gated ? (
           <GatedState title={cs.title} />
-        ) : isSinglePage ? (
-          /* UXDRT: single-page summary layout — content from caseStudies.ts */
-          <div>
-            <div
-              style={{
-                borderTop: "1px solid var(--color-border)",
-                paddingTop: "var(--space-8)",
-                marginBottom: "var(--space-10)",
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "var(--text-xs)",
-                  color: "var(--color-muted)",
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                  marginBottom: "var(--space-4)",
-                }}
-              >
-                Contribution overview
-              </p>
-              <p
-                style={{
-                  fontSize: "var(--text-base)",
-                  color: "var(--color-muted)",
-                  lineHeight: 1.75,
-                }}
-              >
-                {cs.overview}
-              </p>
-            </div>
-
-            {cs.numbers && (
-              <div
-                style={{
-                  borderTop: "1px solid var(--color-border)",
-                  paddingTop: "var(--space-8)",
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "var(--text-xs)",
-                    color: "var(--color-muted)",
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase",
-                    marginBottom: "var(--space-4)",
-                  }}
-                >
-                  By the numbers
-                </p>
-                <p
-                  style={{
-                    fontSize: "var(--text-base)",
-                    color: "var(--color-muted)",
-                    lineHeight: 1.75,
-                  }}
-                >
-                  {cs.numbers}
-                </p>
-              </div>
-            )}
-          </div>
         ) : (
-          /* Phase stepper */
           <PhaseStepper phases={cs.phases} />
         )}
       </FadeIn>

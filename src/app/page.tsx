@@ -17,51 +17,69 @@ export default function Home() {
         padding: "var(--space-24) var(--page-gutter)",
       }}
     >
-      {/* Name + positioning */}
+      {/* Hero — large centred serif text */}
       <FadeIn>
-        <p
+        <div
           style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "var(--text-xs)",
-            color: "var(--color-muted)",
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
-            marginBottom: "var(--space-6)",
-          }}
-        >
-          Malavika — AI Designer
-        </p>
-
-        <h1
-          style={{
-            fontSize: "var(--text-3xl)",
-            fontWeight: 500,
-            letterSpacing: "-0.025em",
-            lineHeight: 1.15,
-            marginBottom: "var(--space-8)",
-            maxWidth: "560px",
-          }}
-        >
-          I design AI products that earn trust through clarity.
-        </h1>
-      </FadeIn>
-
-      {/* Short intro */}
-      <FadeIn delay={0.08}>
-        <p
-          style={{
-            fontSize: "var(--text-lg)",
-            color: "var(--color-muted)",
-            lineHeight: 1.7,
-            maxWidth: "500px",
+            textAlign: "center",
             marginBottom: "var(--space-16)",
           }}
         >
-          UX lead working at the intersection of AI and enterprise software.
-          I work across discovery, design systems, and research — turning
-          complex model behaviour into interfaces people can actually reason
-          about.
-        </p>
+          <p
+            style={{
+              fontFamily: "var(--font-playfair), Georgia, serif",
+              fontSize: "var(--text-lg)",
+              fontWeight: 400,
+              fontStyle: "italic",
+              color: "var(--color-muted)",
+              marginBottom: "var(--space-4)",
+            }}
+          >
+            Okay! You found me.
+          </p>
+          <h1
+            style={{
+              fontFamily: "var(--font-playfair), Georgia, serif",
+              fontSize: "clamp(2rem, 5vw, 3.5rem)",
+              fontWeight: 400,
+              lineHeight: 1.35,
+              letterSpacing: "-0.01em",
+              color: "var(--color-text)",
+              maxWidth: "780px",
+              margin: "0 auto var(--space-6)",
+            }}
+          >
+            I make interfaces.
+            <br />
+            I ask questions.
+            <br />
+            I follow interesting problems down rabbit holes.
+          </h1>
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "var(--text-xs)",
+              color: "var(--color-muted)",
+              letterSpacing: "0.06em",
+              marginBottom: "var(--space-12)",
+            }}
+          >
+            Designer based in Dublin
+          </p>
+
+          {/* Illustration — gif */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/misskalem-cat-13812_512.gif"
+            alt="A little illustration"
+            style={{
+              width: "140px",
+              height: "140px",
+              objectFit: "contain",
+              display: "inline-block",
+            }}
+          />
+        </div>
       </FadeIn>
 
       {/* Work entry points */}
