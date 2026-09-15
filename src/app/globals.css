@@ -166,9 +166,17 @@ img, svg {
     grid-template-columns: 1fr !important;
   }
 
-  /* Case study list — allow timeline to wrap on narrow screens */
+  /* Case study list — keep every row aligned consistently on narrow screens */
   .cs-timeline {
     white-space: normal !important;
+  }
+
+  .uxdrt-timeline-detail {
+    display: none;
+  }
+
+  .career-detail {
+    padding-left: 0 !important;
   }
 
   /* Password gate — stack vertically: gif first, then form */

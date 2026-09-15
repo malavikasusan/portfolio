@@ -144,7 +144,14 @@ export default function Home() {
                       textAlign: "right",
                     }}
                   >
-                    {cs.timeline}
+                    {cs.slug === "uxdrt" ? (
+                      <>
+                        April 2026 – ongoing
+                        <span className="uxdrt-timeline-detail"> (9.2 release cycle to 9.3)</span>
+                      </>
+                    ) : (
+                      cs.timeline
+                    )}
                   </span>
                 </Link>
               </li>

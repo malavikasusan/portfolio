@@ -299,6 +299,7 @@ export default function CareerArc() {
                       style={{ overflow: "hidden" }}
                     >
                       <div
+                        className="career-detail"
                         style={{
                           paddingLeft: "calc(9.5rem + var(--space-4))",
                           paddingRight: "calc(14px + var(--space-4))",
