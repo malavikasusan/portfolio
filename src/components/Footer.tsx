@@ -37,7 +37,7 @@ export default function Footer() {
             letterSpacing: "0.03em",
           }}
         >
-          Built with Next.js
+          No pixels were harmed in the making of this site.
         </span>
       </div>
     </footer>
