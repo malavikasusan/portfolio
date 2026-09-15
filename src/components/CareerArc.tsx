@@ -47,16 +47,6 @@ const career: CareerEntry[] = [
       "Simplified complex blockchain and smart-contract workflows for Console, Chainlink's unified on-chain services dashboard, within a 3-person design pod. Owned trigger configuration, data-fetch steps, template-based flow creation, and a live Solidity code preview. Led design of a unified adaptive navigation system replacing fragmented per-product headers across ~20+ surfaces.",
   },
   {
-    id: "hypersonix",
-    period: "Jul 2021 – Jul 2022",
-    role: "Product Designer",
-    orgParts: [
-      { text: "Hypersonix.ai", href: "https://hypersonix.ai/" },
-    ],
-    detail:
-      "Launched App Studio, a demand-forecasting tool covering the full pipeline as a user-facing experience. Designed Ask Jarvix, a natural-language search interface for enterprise data queries sitting across two backend systems. Helped establish Sonic Design System, Hypersonix's 0-to-1 design system, and contributed to Profit-GPT, a BI dashboard for retail profitability analytics.",
-  },
-  {
     id: "msc",
     period: "Sept 2022 – Dec 2023",
     role: "MSc in Interaction & Experience Design",
@@ -65,6 +55,16 @@ const career: CareerEntry[] = [
       { text: ", Ireland" },
     ],
     detail: null,
+  },
+  {
+    id: "hypersonix",
+    period: "Jul 2021 – Jul 2022",
+    role: "Product Designer",
+    orgParts: [
+      { text: "Hypersonix.ai", href: "https://hypersonix.ai/" },
+    ],
+    detail:
+      "Launched App Studio, a demand-forecasting tool covering the full pipeline as a user-facing experience. Designed Ask Jarvix, a natural-language search interface for enterprise data queries sitting across two backend systems. Helped establish Sonic Design System, Hypersonix's 0-to-1 design system, and contributed to Profit-GPT, a BI dashboard for retail profitability analytics.",
   },
   {
     id: "aphelia",
