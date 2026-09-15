@@ -153,19 +153,47 @@ export default function WorkIndex() {
           paddingTop: "var(--space-8)",
         }}
       >
-        {/* Site note — italic aside first */}
-        <p
+        <figure
           style={{
-            fontSize: "var(--text-xs)",
-            fontStyle: "italic",
-            color: "var(--color-muted)",
-            lineHeight: 1.75,
-            marginBottom: "var(--space-8)",
-            opacity: 0.8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "var(--space-2)",
+            margin: "0 0 var(--space-8)",
           }}
         >
-          A note on how this site was built: this is the first project I've designed and published using AI-native tools end to end, built with an AI coding assistant rather than my usual Figma-first process.
-        </p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/1_W0ur9D98GGM9HGstpvF1ZA.gif"
+            alt="Animated vibe coding illustration"
+            style={{
+              width: "180px",
+              height: "auto",
+            }}
+          />
+
+          <figcaption
+            style={{
+              maxWidth: "680px",
+              fontSize: "var(--text-xs)",
+              fontStyle: "italic",
+              color: "var(--color-muted)",
+              lineHeight: 1.75,
+              textAlign: "center",
+              opacity: 0.8,
+            }}
+          >
+            A note on how this site was built: this is the first project I’ve designed and published using AI-native tools end to end, built with an AI coding assistant rather than my usual Figma-first process.
+          </figcaption>
+        </figure>
+
+        <div
+          aria-hidden="true"
+          style={{
+            borderTop: "1px solid var(--color-border)",
+            marginBottom: "var(--space-8)",
+          }}
+        />
 
         {/* Earlier work */}
         <p

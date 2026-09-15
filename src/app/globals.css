@@ -193,21 +193,21 @@ img, svg {
   border: 0.5px solid transparent;
   position: relative;
   top: -0.05em;
-  transform: scale(1.5);
-  transform-origin: left center;
+  transform: scale(1.25) translateZ(0);
+  transform-origin: center;
+  backface-visibility: hidden;
+  will-change: transform;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
   transition:
-    transform var(--dur-medium) var(--ease-out),
-    border-color var(--dur-medium) var(--ease-out),
-    box-shadow var(--dur-medium) var(--ease-out);
+    transform var(--dur-slow) var(--ease-out),
+    border-color var(--dur-slow) var(--ease-out),
+    box-shadow var(--dur-slow) var(--ease-out);
   cursor: default;
   z-index: 1;
 }
 
 .profile-photo:hover {
-  /* scale up and push right so the expanded image clears the text */
-  transform: scale(7) translateX(55%);
-  transform-origin: left center;
+  transform: scale(3.5) translateZ(0);
   z-index: 10;
   border-color: color-mix(in srgb, var(--color-accent) 60%, transparent);
   box-shadow:

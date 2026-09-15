@@ -19,58 +19,76 @@ export default function InfoPage() {
     >
       {/* Header */}
       <FadeIn>
-        {/* Intro — name + photo on first line, question on second */}
-        <p
-          style={{
-            fontFamily: "var(--font-playfair), Georgia, serif",
-            fontSize: "var(--text-2xl)",
-            fontWeight: 400,
-            lineHeight: 1.6,
-            marginBottom: "var(--space-8)",
-          }}
-        >
-          {"Hi, I\u2019m Malavika Susan "}
-          {/* Profile photo — inline with text, enlarges on hover */}
+        <div style={{ textAlign: "center" }}>
+          {/* Intro — name + photo on first line, question on second */}
+          <p
+            style={{
+              fontFamily: "var(--font-playfair), Georgia, serif",
+              fontSize: "calc(clamp(2rem, 5vw, 3.5rem) - 2px)",
+              fontWeight: 400,
+              lineHeight: 1.35,
+              letterSpacing: "-0.01em",
+              maxWidth: "780px",
+              margin: "0 auto var(--space-6)",
+            }}
+          >
+            {"Hi, I\u2019m Malavika Susan "}
+            {/* Profile photo — inline with text, enlarges on hover */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/case-studies/Image.jpg"
+              alt="Malavika"
+              className="profile-photo"
+              style={{
+                width: "1.6em",
+                height: "1.6em",
+                marginLeft: "0.3em",
+                marginRight: "0.3em",
+              }}
+            />
+            <br />
+            {"Maker of sense from messy things."}
+          </p>
+
+          {/* Second line */}
+          <p
+            style={{
+              fontFamily: "var(--font-playfair), Georgia, serif",
+              fontSize: "var(--text-lg)",
+              fontStyle: "italic",
+              color: "var(--color-muted)",
+              lineHeight: 1.75,
+              marginBottom: "var(--space-8)",
+            }}
+          >
+            {"Mostly because I don\u2019t trust \u201cthat\u2019s just how it works\u201d as an answer."}
+          </p>
+
+          {/* Body paragraph */}
+          <p
+            style={{
+              fontSize: "var(--text-sm)",
+              color: "var(--color-muted)",
+              lineHeight: 1.65,
+              marginBottom: "var(--space-8)",
+            }}
+          >
+            {"I\u2019m a product designer working across enterprise software and AI. I like pulling apart complicated systems, finding the useful thread in a pile of ambiguity, where system behaviour needs to be made legible, and putting things back together in a way that makes sense to humans."}
+          </p>
+
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/case-studies/Image.jpg"
-            alt="Malavika"
-            className="profile-photo"
+            src="/images/u_mey4kjj5ww-angry-2498_512.gif"
+            alt="Animated character at a computer"
             style={{
-              width: "1.6em",
-              height: "1.6em",
-              marginLeft: "0.3em",
-              marginRight: "0.3em",
+              width: "140px",
+              height: "140px",
+              objectFit: "contain",
+              display: "inline-block",
+              marginBottom: "var(--space-8)",
             }}
           />
-          <br />
-          {"Maker of sense from messy things."}
-        </p>
-
-        {/* Second line */}
-        <p
-          style={{
-            fontFamily: "var(--font-playfair), Georgia, serif",
-            fontSize: "var(--text-lg)",
-            fontStyle: "italic",
-            color: "var(--color-muted)",
-            lineHeight: 1.75,
-            marginBottom: "var(--space-8)",
-          }}
-        >
-          {"Mostly because I don\u2019t trust \u201cthat\u2019s just how it works\u201d as an answer."}
-        </p>
-
-        {/* Body paragraph */}
-        <p
-          style={{
-            fontSize: "var(--text-lg)",
-            lineHeight: 1.75,
-            marginBottom: "var(--space-16)",
-          }}
-        >
-          {"I\u2019m a product designer working across enterprise software and AI. I like pulling apart complicated systems, finding the useful thread in a pile of ambiguity, where system behaviour needs to be made legible, and putting things back together in a way that makes sense to humans."}
-        </p>
+        </div>
       </FadeIn>
 
       {/* ── Career arc ── */}

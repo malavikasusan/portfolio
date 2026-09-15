@@ -37,7 +37,7 @@ export default function Footer() {
             letterSpacing: "0.03em",
           }}
         >
-          No pixels were harmed in the making of this site.
+          ❤ Chronically online ❤
         </span>
       </div>
     </footer>
