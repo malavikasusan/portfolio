@@ -10,7 +10,6 @@ import FadeIn from "@/components/FadeIn";
 import PhaseStepper from "@/components/PhaseStepper";
 import AutoplayVideo from "@/components/AutoplayVideo";
 import LockedPhaseStepper from "@/components/LockedPhaseStepper";
-import LockCard from "@/components/LockCard";
 import UnlockedBanner from "@/components/UnlockedBanner";
 import {
   getCaseStudy,
@@ -232,13 +231,11 @@ export default async function CaseStudyPage({ params }: PageProps) {
         ) : (
           // LOCKED: pass only first phase + stripped summaries for 2+
           // No detail/exhibits/sections/video URLs for phases 2+ reach the client
-          <>
-            <LockedPhaseStepper
-              firstPhase={cs.phases[0]}
-              lockedPhases={getLockedPhaseSummaries(cs.phases)}
-            />
-            <LockCard caseStudyTitle={cs.title} />
-          </>
+          <LockedPhaseStepper
+            firstPhase={cs.phases[0]}
+            lockedPhases={getLockedPhaseSummaries(cs.phases)}
+            caseStudyTitle={cs.title}
+          />
         )}
       </FadeIn>
     </div>

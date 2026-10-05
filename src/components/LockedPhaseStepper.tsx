@@ -1,11 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
+import { useRouter } from "next/navigation";
 import AutoplayVideo from "@/components/AutoplayVideo";
 import CarouselBlock from "@/components/CarouselBlock";
 import type { Exhibit, Phase, PhaseSection, LockedPhase } from "@/lib/caseStudies";
+
+// TODO: Replace with your actual contact email if different
+const CASE_STUDY_CONTACT_EMAIL = "malavikasusan18@gmail.com";
 
 // ── Exhibit block (same as PhaseStepper but respects gated in locked context) ──
 
@@ -322,6 +326,188 @@ const statusLabel: Record<NonNullable<Phase["status"]>, string> = {
   "in-progress": "In progress",
 };
 
+// ── Inline lock card (overlays the fade) ─────────────────────────────────────
+
+function InlineLockCard({ caseStudyTitle }: { caseStudyTitle: string }) {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  const mailtoHref = `mailto:${CASE_STUDY_CONTACT_EMAIL}?subject=${encodeURIComponent(
+    `Password request: ${caseStudyTitle}`
+  )}`;
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!password.trim()) return;
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/unlock", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        router.refresh();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setError(
+          res.status === 429
+            ? "Too many attempts. Please wait a few minutes."
+            : data?.error === "wrong_password"
+            ? "That password did not work. Try again or request access."
+            : "Something went wrong. Please try again."
+        );
+        setPassword("");
+        setTimeout(() => inputRef.current?.focus(), 50);
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div
+      style={{
+        position: "sticky",
+        bottom: "var(--space-8)",
+        zIndex: 10,
+        display: "flex",
+        justifyContent: "center",
+        // pull it up so it sits inside the fade zone, not below it
+        marginTop: "-180px",
+        pointerEvents: "none",
+      }}
+    >
+      <div
+        style={{
+          pointerEvents: "auto",
+          background: "var(--color-bg)",
+          border: "1px solid var(--color-border)",
+          borderRadius: "12px",
+          padding: "var(--space-8) var(--space-8)",
+          width: "100%",
+          maxWidth: "360px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "var(--space-4)",
+          boxShadow: "0 2px 24px 0 rgba(26,25,23,0.08)",
+        }}
+      >
+        {/* Envelope + lock illustration */}
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 48 48"
+          fill="none"
+          aria-hidden="true"
+          style={{ color: "var(--color-muted)" }}
+        >
+          <rect x="4" y="12" width="40" height="28" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
+          <polyline points="4,12 24,28 44,12" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
+          <circle cx="24" cy="34" r="5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+          <path d="M21 34v-2.5a3 3 0 0 1 6 0V34" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        </svg>
+
+        <form
+          onSubmit={handleSubmit}
+          noValidate
+          style={{ width: "100%", display: "flex", flexDirection: "column", gap: "var(--space-3)" }}
+        >
+          <label
+            htmlFor="ilc-pw"
+            style={{
+              display: "block",
+              fontSize: "var(--text-sm)",
+              fontWeight: 500,
+              color: "var(--color-text)",
+              textAlign: "center",
+            }}
+          >
+            Enter password
+          </label>
+
+          <input
+            id="ilc-pw"
+            ref={inputRef}
+            type="password"
+            value={password}
+            autoComplete="current-password"
+            disabled={loading}
+            onChange={(e) => { setPassword(e.target.value); if (error) setError(""); }}
+            placeholder="Password"
+            aria-describedby={error ? "ilc-error" : undefined}
+            style={{
+              width: "100%",
+              fontSize: "var(--text-sm)",
+              color: "var(--color-text)",
+              background: "transparent",
+              border: `1px solid ${error ? "#BC3B42" : "var(--color-border)"}`,
+              borderRadius: "6px",
+              padding: "var(--space-3) var(--space-4)",
+              outline: "none",
+            }}
+          />
+
+          <p
+            id="ilc-error"
+            role="alert"
+            aria-live="polite"
+            style={{
+              fontSize: "var(--text-xs)",
+              color: "#BC3B42",
+              minHeight: "1.2em",
+              margin: 0,
+              textAlign: "center",
+              visibility: error ? "visible" : "hidden",
+            }}
+          >
+            {error || " "}
+          </p>
+
+          <button
+            type="submit"
+            disabled={loading || !password.trim()}
+            style={{
+              width: "100%",
+              fontSize: "var(--text-sm)",
+              fontWeight: 500,
+              color: "#fff",
+              background: "var(--color-text)",
+              border: "1px solid var(--color-text)",
+              borderRadius: "6px",
+              padding: "var(--space-3) var(--space-4)",
+              cursor: loading || !password.trim() ? "not-allowed" : "pointer",
+              opacity: loading || !password.trim() ? 0.5 : 1,
+              transition: "opacity 120ms ease",
+            }}
+          >
+            {loading ? "Checking..." : "Submit"}
+          </button>
+        </form>
+
+        <a
+          href={mailtoHref}
+          style={{
+            fontSize: "var(--text-xs)",
+            color: "var(--color-muted)",
+            textDecoration: "underline",
+            textUnderlineOffset: "2px",
+          }}
+        >
+          Request password
+        </a>
+      </div>
+    </div>
+  );
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 
 interface LockedPhaseStepperProps {
@@ -329,11 +515,14 @@ interface LockedPhaseStepperProps {
   firstPhase: Phase;
   /** Minimal summaries for phases 2+ — no content detail */
   lockedPhases: LockedPhase[];
+  /** Case study title — used in the mailto subject */
+  caseStudyTitle: string;
 }
 
 export default function LockedPhaseStepper({
   firstPhase,
   lockedPhases,
+  caseStudyTitle,
 }: LockedPhaseStepperProps) {
   const [phase1Open, setPhase1Open] = useState(true);
 
@@ -583,6 +772,9 @@ export default function LockedPhaseStepper({
               pointerEvents: "none",
             }}
           />
+
+          {/* Lock card — sticky, floats over the fade */}
+          <InlineLockCard caseStudyTitle={caseStudyTitle} />
         </div>
       )}
     </div>
