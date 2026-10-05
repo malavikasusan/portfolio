@@ -467,13 +467,13 @@ function InlineLockCard({ caseStudyTitle }: { caseStudyTitle: string }) {
               fontSize: "var(--text-sm)",
               fontWeight: 500,
               color: "#fff",
-              background: "var(--color-text)",
-              border: "1px solid var(--color-text)",
+              background: loading || !password.trim() ? "var(--color-text)" : "var(--color-accent)",
+              border: `1px solid ${loading || !password.trim() ? "var(--color-text)" : "var(--color-accent)"}`,
               borderRadius: "6px",
               padding: "var(--space-3) var(--space-4)",
               cursor: loading || !password.trim() ? "not-allowed" : "pointer",
               opacity: loading || !password.trim() ? 0.5 : 1,
-              transition: "opacity 120ms ease",
+              transition: "background 120ms ease, border-color 120ms ease, opacity 120ms ease",
             }}
           >
             {loading ? "Checking..." : "Submit"}
