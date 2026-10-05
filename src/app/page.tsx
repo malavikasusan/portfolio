@@ -1,11 +1,60 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
 import { caseStudies } from "@/lib/caseStudies";
+import { SITE_URL } from "@/lib/constants";
 
-export const metadata = {
-  title: "Malavika — AI Designer",
+export const metadata: Metadata = {
+  title: "Malavika Susan | Senior Product Designer, Enterprise Software & AI",
   description:
-    "Portfolio of Malavika, AI Designer — discovery, design systems, and research on enterprise and AI-adjacent products.",
+    "Senior product designer in Dublin designing enterprise software and AI: GenAI assistants, conversation design and research. Currently at IBM.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Malavika Susan | Senior Product Designer, Enterprise Software & AI",
+    description:
+      "Senior product designer in Dublin designing enterprise software and AI: GenAI assistants, conversation design and research. Currently at IBM.",
+    url: SITE_URL,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Malavika Susan | Senior Product Designer, Enterprise Software & AI",
+    description:
+      "Senior product designer in Dublin designing enterprise software and AI: GenAI assistants, conversation design and research. Currently at IBM.",
+  },
+};
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Malavika Susan",
+  jobTitle: "Senior Product Designer",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Dublin",
+    addressCountry: "Ireland",
+  },
+  url: SITE_URL,
+  sameAs: ["https://www.linkedin.com/in/malavikasusan/"],
+  worksFor: {
+    "@type": "Organization",
+    name: "IBM",
+  },
+  alumniOf: {
+    "@type": "EducationalOrganization",
+    name: "University of Limerick",
+  },
+  knowsAbout: [
+    "enterprise software",
+    "generative AI",
+    "conversation design",
+    "agentic AI",
+    "UX research",
+    "design systems",
+    "data security",
+  ],
 };
 
 export default function Home() {
@@ -17,6 +66,10 @@ export default function Home() {
         padding: "var(--space-24) var(--page-gutter)",
       }}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
       {/* Hero — large centred serif text */}
       <FadeIn>
         <div
@@ -61,17 +114,28 @@ export default function Home() {
               fontSize: "var(--text-xs)",
               color: "var(--color-muted)",
               letterSpacing: "0.06em",
-              marginBottom: "var(--space-12)",
+              marginBottom: "var(--space-2)",
             }}
           >
             Designer based in Dublin
+          </p>
+          <p
+            style={{
+              fontSize: "var(--text-sm)",
+              color: "var(--color-muted)",
+              lineHeight: 1.6,
+              maxWidth: "540px",
+              margin: "0 auto var(--space-12)",
+            }}
+          >
+            Senior product designer for enterprise software and AI. Currently designing AI assistants at IBM.
           </p>
 
           {/* Illustration — gif */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/misskalem-cat-13812_512.gif"
-            alt="A little illustration"
+            alt=""
             style={{
               width: "140px",
               height: "140px",

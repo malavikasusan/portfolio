@@ -1,32 +1,41 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 
-const PASSWORD = "younowhaveaccess";
-
-interface PasswordGateProps {
-  children: React.ReactNode;
-}
-
-export default function PasswordGate({ children }: PasswordGateProps) {
-  const [unlocked, setUnlocked] = useState(false);
+export default function PasswordGate() {
   const [reason, setReason] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (password === PASSWORD) {
-      setUnlocked(true);
-    } else {
-      setError("Incorrect password. Try again, or request access below.");
-      setPassword("");
-      passwordRef.current?.focus();
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/unlock", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+
+      if (res.ok) {
+        router.refresh();
+      } else {
+        setError("Incorrect password. Try again, or request access below.");
+        setPassword("");
+        passwordRef.current?.focus();
+      }
+    } catch {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
   }
-
-  if (unlocked) return <>{children}</>;
 
   return (
     <div
@@ -110,6 +119,7 @@ export default function PasswordGate({ children }: PasswordGateProps) {
             value={password}
             onChange={(e) => { setPassword(e.target.value); setError(""); }}
             placeholder="Enter password"
+            disabled={loading}
             style={{
               fontSize: "var(--text-sm)",
               color: "var(--color-text)",
@@ -131,6 +141,7 @@ export default function PasswordGate({ children }: PasswordGateProps) {
         <div style={{ display: "flex", gap: "var(--space-3)", flexWrap: "wrap" }}>
           <button
             type="submit"
+            disabled={loading}
             style={{
               fontSize: "var(--text-sm)",
               fontWeight: 500,
@@ -138,11 +149,12 @@ export default function PasswordGate({ children }: PasswordGateProps) {
               background: "var(--color-text)",
               border: "1px solid var(--color-text)",
               padding: "var(--space-3) var(--space-6)",
-              cursor: "pointer",
+              cursor: loading ? "wait" : "pointer",
               letterSpacing: "0.01em",
+              opacity: loading ? 0.7 : 1,
             }}
           >
-            Submit
+            {loading ? "Checking..." : "Submit"}
           </button>
           <a
             href={`mailto:malavikasusan18@gmail.com?subject=Requesting portfolio view access&body=${encodeURIComponent(reason)}`}

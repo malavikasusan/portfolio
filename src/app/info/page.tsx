@@ -1,12 +1,61 @@
+import type { Metadata } from "next";
 import FadeIn from "@/components/FadeIn";
 import LifeCarousel from "@/components/LifeCarousel";
 import CareerArc from "@/components/CareerArc";
+import { SITE_URL } from "@/lib/constants";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Info",
-  description: "About Malavika — Senior Product Designer",
+  description:
+    "Career arc from architecture to UX, data security and AI design. Based in Dublin.",
+  alternates: {
+    canonical: "/info",
+  },
+  openGraph: {
+    title: "Info | Malavika Susan",
+    description:
+      "Career arc from architecture to UX, data security and AI design. Based in Dublin.",
+    url: `${SITE_URL}/info`,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Info | Malavika Susan",
+    description:
+      "Career arc from architecture to UX, data security and AI design. Based in Dublin.",
+  },
 };
 
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Malavika Susan",
+  jobTitle: "Senior Product Designer",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Dublin",
+    addressCountry: "Ireland",
+  },
+  url: SITE_URL,
+  sameAs: ["https://www.linkedin.com/in/malavikasusan/"],
+  worksFor: {
+    "@type": "Organization",
+    name: "IBM",
+  },
+  alumniOf: {
+    "@type": "EducationalOrganization",
+    name: "University of Limerick",
+  },
+  knowsAbout: [
+    "enterprise software",
+    "generative AI",
+    "conversation design",
+    "agentic AI",
+    "UX research",
+    "design systems",
+    "data security",
+  ],
+};
 
 export default function InfoPage() {
   return (
@@ -17,11 +66,15 @@ export default function InfoPage() {
         padding: "var(--space-24) var(--page-gutter)",
       }}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
       {/* Header */}
       <FadeIn>
         <div style={{ textAlign: "center" }}>
           {/* Intro — name + photo on first line, question on second */}
-          <p
+          <h1
             style={{
               fontFamily: "var(--font-playfair), Georgia, serif",
               fontSize: "calc(clamp(2rem, 5vw, 3.5rem) - 2px)",
@@ -37,7 +90,7 @@ export default function InfoPage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/case-studies/Image.jpg"
-              alt="Malavika"
+              alt="Portrait of Malavika Susan"
               className="profile-photo"
               style={{
                 width: "1.6em",
@@ -48,7 +101,7 @@ export default function InfoPage() {
             />
             <br />
             {"Maker of sense from messy things."}
-          </p>
+          </h1>
 
           {/* Second line */}
           <p
@@ -79,7 +132,7 @@ export default function InfoPage() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/u_mey4kjj5ww-angry-2498_512.gif"
-            alt="Animated character at a computer"
+            alt=""
             style={{
               width: "140px",
               height: "140px",

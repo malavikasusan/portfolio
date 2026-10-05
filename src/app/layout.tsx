@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
+import { SITE_URL } from "@/lib/constants";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,13 +22,36 @@ const playfair = Playfair_Display({
   weight: ["400", "500"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#FAF9F6",
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Malavika — AI Designer",
-    template: "%s — Malavika",
+    default: "Malavika Susan | Senior Product Designer, Enterprise Software & AI",
+    template: "%s | Malavika Susan",
   },
   description:
-    "Portfolio of Malavika, AI Designer — discovery, research, and enterprise AI product work.",
+    "Senior product designer in Dublin designing enterprise software and AI: GenAI assistants, conversation design and research. Currently at IBM.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Malavika Susan | Senior Product Designer, Enterprise Software & AI",
+    description:
+      "Senior product designer in Dublin designing enterprise software and AI: GenAI assistants, conversation design and research. Currently at IBM.",
+    url: SITE_URL,
+    siteName: "Malavika Susan",
+    type: "website",
+    locale: "en_IE",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Malavika Susan | Senior Product Designer, Enterprise Software & AI",
+    description:
+      "Senior product designer in Dublin designing enterprise software and AI: GenAI assistants, conversation design and research. Currently at IBM.",
+  },
 };
 
 export default function RootLayout({

@@ -460,7 +460,7 @@ Expected efficiency gains for teams adopting this process:
     timeline: "Sept – Oct 2025",
     gated: false,
     summary:
-      "Analysts needed a way to suppress known safe activity from generating threat cases, without losing control over what got blocked or why. I launched the exclusion rule builder inside Guardium's Active Threat Analytics from a rigid, all-inputs form into a guided, real-time, explainable builder, then supported it through to dev handoff and validated it with real users.",
+      "Analysts needed a way to suppress known safe activity from generating threat cases, without losing control over what got blocked or why. I redesigned the exclusion rule builder inside Guardium's Active Threat Analytics from a rigid, all-inputs form into a guided, real-time, explainable builder, then supported it through dev handoff and validated it with real users.",
     phases: [
       {
         id: "context",

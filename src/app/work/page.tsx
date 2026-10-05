@@ -1,10 +1,29 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
 import { caseStudies } from "@/lib/caseStudies";
+import { SITE_URL } from "@/lib/constants";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Work",
-  description: "Case studies and selected work",
+  description:
+    "Case studies in enterprise AI and security design: AI assistant validation, AI summarization, QA systems and a threat analytics rule builder.",
+  alternates: {
+    canonical: "/work",
+  },
+  openGraph: {
+    title: "Work | Malavika Susan",
+    description:
+      "Case studies in enterprise AI and security design: AI assistant validation, AI summarization, QA systems and a threat analytics rule builder.",
+    url: `${SITE_URL}/work`,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Work | Malavika Susan",
+    description:
+      "Case studies in enterprise AI and security design: AI assistant validation, AI summarization, QA systems and a threat analytics rule builder.",
+  },
 };
 
 export default function WorkIndex() {
@@ -172,7 +191,7 @@ export default function WorkIndex() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/1_W0ur9D98GGM9HGstpvF1ZA.gif"
-            alt="Animated vibe coding illustration"
+            alt=""
             style={{
               width: "180px",
               height: "auto",

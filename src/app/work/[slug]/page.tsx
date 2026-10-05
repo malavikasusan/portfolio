@@ -1,12 +1,15 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import type { Metadata } from "next";
 import FadeIn from "@/components/FadeIn";
 import PhaseStepper from "@/components/PhaseStepper";
 import GatedState from "@/components/GatedState";
 import AutoplayVideo from "@/components/AutoplayVideo";
 import PasswordGate from "@/components/PasswordGate";
 import { getCaseStudy, caseStudies } from "@/lib/caseStudies";
+import { SITE_URL } from "@/lib/constants";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -17,11 +20,46 @@ export async function generateStaticParams() {
   return caseStudies.map((cs) => ({ slug: cs.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const cs = getCaseStudy(slug);
+
+  if (!cs) {
+    return {
+      title: "Case Study Not Found",
+    };
+  }
+
+  const title = cs.title;
+  const description = cs.summary;
+  const url = `${SITE_URL}/work/${cs.slug}`;
+
   return {
-    title: cs ? `${cs.title} — Work` : "Work",
+    title,
+    description,
+    alternates: {
+      canonical: `/work/${cs.slug}`,
+    },
+    robots: cs.gated
+      ? {
+          index: false,
+          follow: true,
+        }
+      : {
+          index: true,
+          follow: true,
+        },
+    openGraph: {
+      title: `${title} | Malavika Susan`,
+      description,
+      url,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | Malavika Susan`,
+      description,
+    },
   };
 }
 
@@ -31,8 +69,14 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
   if (!cs) notFound();
 
+  const cookieStore = await cookies();
+  const hasAccess = cookieStore.get("portfolio_access")?.value === "granted";
+
+  if (!hasAccess) {
+    return <PasswordGate />;
+  }
+
   return (
-    <PasswordGate>
     <div
       style={{
         maxWidth: "1000px",
@@ -87,7 +131,11 @@ export default async function CaseStudyPage({ params }: PageProps) {
             <AutoplayVideo
               src={cs.heroVideo}
               playbackRate={cs.heroPlaybackRate}
-              style={{ width: "100%", display: "block", marginBottom: cs.heroCaption ? "var(--space-2)" : "var(--space-6)" }}
+              style={{
+                width: "100%",
+                display: "block",
+                marginBottom: cs.heroCaption ? "var(--space-2)" : "var(--space-6)",
+              }}
             />
             {cs.heroCaption && (
               <p
@@ -138,10 +186,14 @@ export default async function CaseStudyPage({ params }: PageProps) {
             alt={cs.title}
             width={720}
             height={405}
-            style={{ width: "100%", height: "auto", display: "block", marginBottom: "var(--space-6)" }}
+            style={{
+              width: "100%",
+              height: "auto",
+              display: "block",
+              marginBottom: "var(--space-6)",
+            }}
           />
         )}
-
       </FadeIn>
 
       {/* ── Content area ── */}
@@ -153,6 +205,5 @@ export default async function CaseStudyPage({ params }: PageProps) {
         )}
       </FadeIn>
     </div>
-    </PasswordGate>
   );
 }
