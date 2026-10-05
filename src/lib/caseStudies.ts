@@ -24,10 +24,18 @@ export interface PhaseSection {
 export interface Phase {
   id: string;
   title: string;
-  summary: string;          // 1–2 sentences, shown collapsed
+  summary: string;          // 1–2 sentences, shown collapsed / used as teaser
   detail?: string;          // full markdown content, shown expanded (standard phases)
   exhibits?: Exhibit[];
   sections?: PhaseSection[]; // paired layout: each section has its own exhibit
+  status?: "in-progress" | "done";
+}
+
+/** Minimal shape passed to the browser for phases that are locked server-side. */
+export interface LockedPhase {
+  id: string;
+  title: string;
+  summary: string;
   status?: "in-progress" | "done";
 }
 
@@ -517,7 +525,7 @@ Expected efficiency gains for teams adopting this process:
             id: "scheduling-recurrence",
             title: "Scheduling",
             text: "Once the core builder worked, the next gap was time. By default, a rule now runs indefinitely from today, so most people don't have to think about scheduling at all, but once someone defines a period, repeat options like weekly, monthly, quarterly, or a fully custom recurrence become available. A calendar-style preview highlights the exact days a rule will be active, and the interface uses natural language phrasing wherever possible, something like 'this repeats on the first Sunday of every month' rather than a raw rule string.",
-            exhibit: { type: "video", src: "/images/case-studies/guardium-exclusion-builder/scheduler feature.mp4.mov", caption: "Scheduler feature — OOTB recurrence options and calendar preview, so analysts could define when a rule runs and see exactly which days it would trigger.", playbackRate: 1.5 },
+            exhibit: { type: "video", src: "/images/case-studies/guardium-exclusion-builder/scheduler feature.mp4.mov", caption: "Scheduler feature — OOTB recurrence options and calendar preview, so analysts could define when a rule runs and see exactly which days it would trigger.", playbackRate: 1.5, gated: true },
           },
           {
             id: "scheduling-explainability",
@@ -583,8 +591,22 @@ Expected efficiency gains for teams adopting this process:
   },
 ];
 
-// ─── Helper ───────────────────────────────────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies.find((cs) => cs.slug === slug);
+}
+
+/**
+ * Returns the stripped-down representation of phases 2+ that is safe to send
+ * to a locked visitor's browser. No detail, no exhibits, no sections, no video
+ * URLs — only what is needed to render the collapsed rows.
+ */
+export function getLockedPhaseSummaries(phases: Phase[]): LockedPhase[] {
+  return phases.slice(1).map(({ id, title, summary, status }) => ({
+    id,
+    title,
+    summary,
+    ...(status ? { status } : {}),
+  }));
 }

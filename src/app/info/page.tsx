@@ -17,12 +17,21 @@ export const metadata: Metadata = {
       "Career arc from architecture to UX, data security and AI design. Based in Dublin.",
     url: `${SITE_URL}/info`,
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Malavika Susan — Senior Product Designer, Enterprise Software & AI",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Info | Malavika Susan",
     description:
       "Career arc from architecture to UX, data security and AI design. Based in Dublin.",
+    images: ["/twitter-image"],
   },
 };
 

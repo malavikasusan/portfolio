@@ -17,12 +17,21 @@ export const metadata: Metadata = {
       "Senior product designer in Dublin designing enterprise software and AI: GenAI assistants, conversation design and research. Currently at IBM.",
     url: SITE_URL,
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Malavika Susan — Senior Product Designer, Enterprise Software & AI",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Malavika Susan | Senior Product Designer, Enterprise Software & AI",
     description:
       "Senior product designer in Dublin designing enterprise software and AI: GenAI assistants, conversation design and research. Currently at IBM.",
+    images: ["/twitter-image"],
   },
 };
 

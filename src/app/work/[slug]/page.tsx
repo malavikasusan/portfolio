@@ -3,17 +3,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import type { Metadata } from "next";
+
+// Force dynamic rendering so cookies() is evaluated per-request, not at build time
+export const dynamic = "force-dynamic";
 import FadeIn from "@/components/FadeIn";
 import PhaseStepper from "@/components/PhaseStepper";
-import GatedState from "@/components/GatedState";
 import AutoplayVideo from "@/components/AutoplayVideo";
-import PasswordGate from "@/components/PasswordGate";
-import { getCaseStudy, caseStudies } from "@/lib/caseStudies";
+import LockedPhaseStepper from "@/components/LockedPhaseStepper";
+import LockCard from "@/components/LockCard";
+import UnlockedBanner from "@/components/UnlockedBanner";
+import {
+  getCaseStudy,
+  getLockedPhaseSummaries,
+  caseStudies,
+} from "@/lib/caseStudies";
+import { verifyCookieValue, COOKIE_NAME } from "@/lib/auth";
 import { SITE_URL } from "@/lib/constants";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
+// Slugs that have the Medium-style password gate
+const GATED_SLUGS = new Set([
+  "ai-summarization",
+  "9-2-usability-testing",
+  "uxdrt",
+  "guardium-exclusion-builder",
+]);
 
 // Pre-generate all case study routes at build time
 export async function generateStaticParams() {
@@ -25,9 +42,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const cs = getCaseStudy(slug);
 
   if (!cs) {
-    return {
-      title: "Case Study Not Found",
-    };
+    return { title: "Case Study Not Found" };
   }
 
   const title = cs.title;
@@ -40,25 +55,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     alternates: {
       canonical: `/work/${cs.slug}`,
     },
-    robots: cs.gated
-      ? {
-          index: false,
-          follow: true,
-        }
-      : {
-          index: true,
-          follow: true,
-        },
+    // Locked pages stay indexable — preview text only reaches crawlers
+    robots: { index: true, follow: true },
     openGraph: {
       title: `${title} | Malavika Susan`,
       description,
       url,
       type: "website",
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: "Malavika Susan — Senior Product Designer, Enterprise Software & AI",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} | Malavika Susan`,
       description,
+      images: ["/twitter-image"],
     },
   };
 }
@@ -69,12 +86,20 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
   if (!cs) notFound();
 
-  const cookieStore = await cookies();
-  const hasAccess = cookieStore.get("portfolio_access")?.value === "granted";
+  // ── Auth check (server-side, cookie never leaves server) ──────────────────
+  const isGated = GATED_SLUGS.has(slug);
 
-  if (!hasAccess) {
-    return <PasswordGate />;
+  let hasAccess = false;
+  if (isGated) {
+    const cookieStore = await cookies();
+    const cookieValue = cookieStore.get(COOKIE_NAME)?.value ?? "";
+    hasAccess = cookieValue ? verifyCookieValue(cookieValue) : false;
+  } else {
+    // Non-gated pages are always accessible
+    hasAccess = true;
   }
+
+  const currentPath = `/work/${slug}`;
 
   return (
     <div
@@ -97,8 +122,11 @@ export default async function CaseStudyPage({ params }: PageProps) {
             marginBottom: "var(--space-12)",
           }}
         >
-          ← Work
+          &larr; Work
         </Link>
+
+        {/* Unlocked banner */}
+        {isGated && hasAccess && <UnlockedBanner currentPath={currentPath} />}
 
         {/* Title */}
         <h1
@@ -113,7 +141,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           {cs.title}
         </h1>
 
-        {/* Summary */}
+        {/* Public summary — always shown */}
         <p
           style={{
             fontSize: "var(--text-lg)",
@@ -125,7 +153,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           {cs.summary}
         </p>
 
-        {/* Hero image / video */}
+        {/* Hero image / video — always shown */}
         {cs.heroVideo ? (
           <>
             <AutoplayVideo
@@ -177,7 +205,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
               >
                 product demo here
               </a>
-              . PS: crank it to 1.25× — it hits different.
+              . PS: crank it to 1.25x — it hits different.
             </p>
           </>
         ) : (
@@ -198,10 +226,19 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
       {/* ── Content area ── */}
       <FadeIn delay={0.1}>
-        {cs.gated ? (
-          <GatedState title={cs.title} />
-        ) : (
+        {hasAccess ? (
+          // UNLOCKED: pass full phase data to the interactive stepper
           <PhaseStepper phases={cs.phases} />
+        ) : (
+          // LOCKED: pass only first phase + stripped summaries for 2+
+          // No detail/exhibits/sections/video URLs for phases 2+ reach the client
+          <>
+            <LockedPhaseStepper
+              firstPhase={cs.phases[0]}
+              lockedPhases={getLockedPhaseSummaries(cs.phases)}
+            />
+            <LockCard caseStudyTitle={cs.title} />
+          </>
         )}
       </FadeIn>
     </div>

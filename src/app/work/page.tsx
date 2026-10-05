@@ -17,12 +17,21 @@ export const metadata: Metadata = {
       "Case studies in enterprise AI and security design: AI assistant validation, AI summarization, QA systems and a threat analytics rule builder.",
     url: `${SITE_URL}/work`,
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Malavika Susan — Senior Product Designer, Enterprise Software & AI",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Work | Malavika Susan",
     description:
       "Case studies in enterprise AI and security design: AI assistant validation, AI summarization, QA systems and a threat analytics rule builder.",
+    images: ["/twitter-image"],
   },
 };
 
