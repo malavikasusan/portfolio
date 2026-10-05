@@ -374,30 +374,20 @@ function InlineLockCard({ caseStudyTitle }: { caseStudyTitle: string }) {
   return (
     <div
       style={{
-        position: "sticky",
-        bottom: "var(--space-8)",
-        zIndex: 10,
         display: "flex",
         justifyContent: "center",
-        // pull it up so it sits inside the fade zone, not below it
-        marginTop: "-180px",
-        pointerEvents: "none",
+        padding: "var(--space-12) 0 var(--space-8)",
       }}
     >
       <div
         style={{
-          pointerEvents: "auto",
           background: "var(--color-bg)",
-          border: "1px solid var(--color-border)",
-          borderRadius: "12px",
-          padding: "var(--space-8) var(--space-8)",
           width: "100%",
           maxWidth: "360px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           gap: "var(--space-4)",
-          boxShadow: "0 2px 24px 0 rgba(26,25,23,0.08)",
         }}
       >
         {/* Envelope + lock illustration */}
@@ -651,6 +641,7 @@ export default function LockedPhaseStepper({
 
       {/* ── Phases 2+: locked collapsed rows + fade + lock card ── */}
       {lockedPhases.length > 0 && (
+        <>
         <div style={{ position: "relative" }}>
           {/* Locked rows — non-interactive */}
           <div
@@ -761,21 +752,22 @@ export default function LockedPhaseStepper({
             <div style={{ borderTop: "1px solid var(--color-border)" }} />
           </div>
 
-          {/* Fade overlay — transparent at top, opaque at bottom */}
+          {/* Fade overlay — gradient from transparent to page bg, covers bottom ~60% of rows */}
           <div
             aria-hidden="true"
             style={{
               position: "absolute",
               inset: 0,
               background:
-                "linear-gradient(to bottom, transparent 0%, transparent 15%, var(--color-bg) 85%)",
+                "linear-gradient(to bottom, transparent 0%, transparent 20%, var(--color-bg) 70%, var(--color-bg) 100%)",
               pointerEvents: "none",
             }}
           />
-
-          {/* Lock card — sticky, floats over the fade */}
-          <InlineLockCard caseStudyTitle={caseStudyTitle} />
         </div>
+
+        {/* Lock card — in normal flow, directly below the faded rows */}
+        <InlineLockCard caseStudyTitle={caseStudyTitle} />
+        </>
       )}
     </div>
   );
