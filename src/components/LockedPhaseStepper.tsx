@@ -398,26 +398,27 @@ export default function LockedPhaseStepper({ firstPhase, lockedPhases, caseStudy
               <div style={{ borderTop: "1px solid var(--color-border)" }} />
             </div>
 
-            {/* Fade gradient — rows dissolve into page bg */}
+            {/* Fade gradient — starts early so it kicks in right after row 02 */}
             <div
               aria-hidden="true"
               style={{
                 position: "absolute",
                 inset: 0,
-                background: "linear-gradient(to bottom, transparent 0%, transparent 20%, var(--color-bg) 60%, var(--color-bg) 100%)",
+                background: "linear-gradient(to bottom, transparent 0%, transparent 10%, var(--color-bg) 45%, var(--color-bg) 100%)",
                 pointerEvents: "none",
               }}
             />
 
-            {/* Hero image — centred, sits on top of the fade, width capped to form width */}
+            {/* Hero image — sits at the top of the fade zone, overlapping row 03 */}
             <div
               style={{
                 position: "absolute",
-                bottom: 0,
+                top: "20px",
                 left: "50%",
                 transform: "translateX(-50%)",
                 width: "min(100%, 360px)",
                 pointerEvents: "none",
+                zIndex: 1,
               }}
               aria-hidden="true"
             >
@@ -428,8 +429,8 @@ export default function LockedPhaseStepper({ firstPhase, lockedPhases, caseStudy
               />
             </div>
 
-            {/* Reserve space for the image so it isn't clipped by the container */}
-            <div style={{ height: "220px" }} aria-hidden="true" />
+            {/* Spacer: tall enough to fully contain the image */}
+            <div style={{ height: "320px" }} aria-hidden="true" />
           </div>
 
           {/* Password form — in normal flow directly below */}
