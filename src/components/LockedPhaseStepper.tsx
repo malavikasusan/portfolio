@@ -226,10 +226,6 @@ function LockForm({ caseStudyTitle }: { caseStudyTitle: string }) {
         alignItems: "center",
         gap: "var(--space-4)",
         width: "100%",
-        maxWidth: "360px",
-        margin: "0 auto",
-        paddingTop: "var(--space-4)",
-        paddingBottom: "var(--space-8)",
       }}
     >
       <form
@@ -398,25 +394,25 @@ export default function LockedPhaseStepper({ firstPhase, lockedPhases, caseStudy
               <div style={{ borderTop: "1px solid var(--color-border)" }} />
             </div>
 
-            {/* Fade gradient — starts early so it kicks in right after row 02 */}
+            {/* Fade gradient — fades rows into background */}
             <div
               aria-hidden="true"
               style={{
                 position: "absolute",
                 inset: 0,
-                background: "linear-gradient(to bottom, transparent 0%, transparent 10%, var(--color-bg) 45%, var(--color-bg) 100%)",
+                background: "linear-gradient(to bottom, rgba(248,247,245,0.7) 0%, rgba(248,247,245,0.8) 20%, #F8F7F5 40%)",
                 pointerEvents: "none",
               }}
             />
 
-            {/* Hero image — sits at the top of the fade zone, overlapping row 03 */}
+            {/* Hero image — overlapping row 03 */}
             <div
               style={{
                 position: "absolute",
                 top: "20px",
                 left: "50%",
                 transform: "translateX(-50%)",
-                width: "min(100%, 360px)",
+                width: "min(100%, 300px)",
                 pointerEvents: "none",
                 zIndex: 1,
               }}
@@ -429,12 +425,24 @@ export default function LockedPhaseStepper({ firstPhase, lockedPhases, caseStudy
               />
             </div>
 
-            {/* Spacer: tall enough to fully contain the image */}
-            <div style={{ height: "320px" }} aria-hidden="true" />
-          </div>
+            {/* Password form — overlaid below the image */}
+            <div
+              style={{
+                position: "absolute",
+                top: "220px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "min(100%, 360px)",
+                zIndex: 2,
+                paddingBottom: "var(--space-8)",
+              }}
+            >
+              <LockForm caseStudyTitle={caseStudyTitle} />
+            </div>
 
-          {/* Password form — in normal flow directly below */}
-          <LockForm caseStudyTitle={caseStudyTitle} />
+            {/* Spacer: enough to contain image + form */}
+            <div style={{ height: "580px" }} aria-hidden="true" />
+          </div>
         </>
       )}
     </div>

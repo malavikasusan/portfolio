@@ -119,17 +119,6 @@ export default function Home() {
           </h1>
           <p
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "var(--text-xs)",
-              color: "var(--color-muted)",
-              letterSpacing: "0.06em",
-              marginBottom: "var(--space-2)",
-            }}
-          >
-            Designer based in Dublin
-          </p>
-          <p
-            style={{
               fontSize: "var(--text-sm)",
               color: "var(--color-muted)",
               lineHeight: 1.6,
@@ -137,7 +126,18 @@ export default function Home() {
               margin: "0 auto var(--space-12)",
             }}
           >
-            Senior product designer for enterprise software and AI. Currently designing AI assistants at IBM.
+            Senior Product Designer based in Dublin, Ireland.
+            <br />
+            Currently shipping AI features for{" "}
+            <a
+              href="https://www.ibm.com/products/maximo/ai-asset-management"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#E8580A", textDecoration: "underline", textUnderlineOffset: "2px" }}
+            >
+              Maximo
+            </a>
+            , IBM
           </p>
 
           {/* Illustration — gif */}
@@ -157,12 +157,7 @@ export default function Home() {
 
       {/* Work entry points */}
       <FadeIn delay={0.14}>
-        <div
-          style={{
-            borderTop: "1px solid var(--color-border)",
-            paddingTop: "var(--space-8)",
-          }}
-        >
+        <div>
           <p
             style={{
               fontFamily: "var(--font-mono)",
@@ -170,66 +165,112 @@ export default function Home() {
               color: "var(--color-muted)",
               letterSpacing: "0.06em",
               textTransform: "uppercase",
-              marginBottom: "var(--space-6)",
+              marginBottom: "var(--space-4)",
             }}
           >
             Selected work
           </p>
 
-          <ul
-            style={{
-              listStyle: "none",
-              margin: 0,
-              padding: 0,
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            {caseStudies.map((cs) => (
-              <li key={cs.slug}>
-                <Link
-                  href={`/work/${cs.slug}`}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "baseline",
-                    gap: "var(--space-6)",
-                    padding: "var(--space-4) 0",
-                    borderBottom: "1px solid var(--color-border)",
-                  }}
-                >
-                  <span
+          <div>
+            {caseStudies
+              .filter((cs) => cs.slug === "ai-summarization" || cs.slug === "guardium-exclusion-builder")
+              .map((cs, i) => (
+                <FadeIn key={cs.slug} delay={0.14 + i * 0.06}>
+                  <Link
+                    href={`/work/${cs.slug}`}
                     style={{
-                      fontSize: "var(--text-base)",
-                      fontWeight: 500,
+                      display: "block",
+                      paddingTop: "var(--space-8)",
+                      paddingBottom: "var(--space-8)",
+                      borderTop: "1px solid var(--color-border)",
                     }}
                   >
-                    {cs.title}
-                  </span>
-                  <span
-                    className="cs-timeline"
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "var(--text-xs)",
-                      color: "var(--color-muted)",
-                      whiteSpace: "nowrap",
-                      flexShrink: 0,
-                      textAlign: "right",
-                    }}
-                  >
-                    {cs.slug === "uxdrt" ? (
-                      <>
-                        April 2026 – ongoing
-                        <span className="uxdrt-timeline-detail"> (9.2 release cycle to 9.3)</span>
-                      </>
-                    ) : (
-                      cs.timeline
-                    )}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+                    {/* Row 1: title + timeline */}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "baseline",
+                        gap: "var(--space-6)",
+                        marginBottom: "var(--space-2)",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "var(--text-lg)",
+                          fontWeight: 500,
+                          letterSpacing: "-0.01em",
+                        }}
+                      >
+                        {cs.title}
+                      </span>
+                      <span
+                        className="cs-timeline"
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "var(--text-xs)",
+                          color: "var(--color-muted)",
+                          whiteSpace: "nowrap",
+                          flexShrink: 0,
+                          textAlign: "right",
+                        }}
+                      >
+                        {cs.timeline}
+                      </span>
+                    </div>
+
+                    {/* Row 2: role + gated badge */}
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "var(--space-4)",
+                        alignItems: "center",
+                        marginBottom: "var(--space-2)",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "var(--text-xs)",
+                          color: "var(--color-muted)",
+                          letterSpacing: "0.03em",
+                        }}
+                      >
+                        {cs.role}
+                      </span>
+                      {cs.gated && (
+                        <span
+                          style={{
+                            fontFamily: "var(--font-mono)",
+                            fontSize: "var(--text-xs)",
+                            color: "var(--color-muted)",
+                            letterSpacing: "0.03em",
+                            paddingLeft: "var(--space-4)",
+                            borderLeft: "1px solid var(--color-border)",
+                          }}
+                        >
+                          Gated
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Summary */}
+                    <p
+                      style={{
+                        fontSize: "var(--text-sm)",
+                        color: "var(--color-muted)",
+                        lineHeight: 1.65,
+                      }}
+                    >
+                      {cs.summary}
+                    </p>
+                  </Link>
+                </FadeIn>
+              ))}
+
+            {/* Final border */}
+            <div style={{ borderTop: "1px solid var(--color-border)" }} />
+          </div>
 
           <Link
             href="/work"
