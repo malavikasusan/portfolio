@@ -376,7 +376,7 @@ function InlineLockCard({ caseStudyTitle }: { caseStudyTitle: string }) {
       style={{
         display: "flex",
         justifyContent: "center",
-        padding: "var(--space-12) 0 var(--space-8)",
+        padding: "var(--space-6) 0 var(--space-8)",
       }}
     >
       <div
@@ -390,20 +390,18 @@ function InlineLockCard({ caseStudyTitle }: { caseStudyTitle: string }) {
           gap: "var(--space-4)",
         }}
       >
-        {/* Envelope + lock illustration */}
-        <svg
-          width="40"
-          height="40"
-          viewBox="0 0 48 48"
-          fill="none"
+        {/* Hero image — constrained to input field width */}
+        <img
+          src="/images/password hero.jpeg"
+          alt=""
           aria-hidden="true"
-          style={{ color: "var(--color-muted)" }}
-        >
-          <rect x="4" y="12" width="40" height="28" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
-          <polyline points="4,12 24,28 44,12" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
-          <circle cx="24" cy="34" r="5" stroke="currentColor" strokeWidth="1.5" fill="none" />
-          <path d="M21 34v-2.5a3 3 0 0 1 6 0V34" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-        </svg>
+          style={{
+            width: "100%",
+            maxWidth: "360px",
+            display: "block",
+            objectFit: "cover",
+          }}
+        />
 
         <form
           onSubmit={handleSubmit}
