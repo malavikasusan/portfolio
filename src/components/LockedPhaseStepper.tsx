@@ -362,10 +362,11 @@ export default function LockedPhaseStepper({ firstPhase, lockedPhases, caseStudy
       {/* ── Phases 2+: locked rows fading into hero image, then form below ── */}
       {lockedPhases.length > 0 && (
         <>
-          {/* Rows + fade + hero image — all in one relative container */}
+          {/* Rows + fade sit behind the image + form, which alone sets the height */}
           <div style={{ position: "relative" }}>
-            {/* Locked rows — non-interactive */}
-            <div aria-hidden="true" style={{ userSelect: "none", pointerEvents: "none" }}>
+            {/* Locked rows — non-interactive, clipped to the form's height (rows past
+                the fade are invisible anyway) */}
+            <div aria-hidden="true" style={{ position: "absolute", inset: 0, overflow: "hidden", userSelect: "none", pointerEvents: "none" }}>
               {lockedPhases.map((phase, idx) => (
                 <div key={phase.id} role="listitem" style={{ borderTop: "1px solid var(--color-border)" }}>
                   <div style={{ width: "100%", padding: "var(--space-6) 0", display: "grid", gridTemplateColumns: "1.5rem 1fr auto", gap: "var(--space-4)", alignItems: "start", textAlign: "left", color: "var(--color-text)", opacity: 0.6 }}>
@@ -405,43 +406,29 @@ export default function LockedPhaseStepper({ firstPhase, lockedPhases, caseStudy
               }}
             />
 
-            {/* Hero image — overlapping row 03 */}
+            {/* Hero image + password form */}
             <div
               style={{
-                position: "absolute",
-                top: "20px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "min(100%, 300px)",
-                pointerEvents: "none",
+                position: "relative",
                 zIndex: 1,
-              }}
-              aria-hidden="true"
-            >
-              <img
-                src="/images/password hero.jpeg"
-                alt=""
-                style={{ width: "100%", display: "block" }}
-              />
-            </div>
-
-            {/* Password form — overlaid below the image */}
-            <div
-              style={{
-                position: "absolute",
-                top: "220px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "min(100%, 360px)",
-                zIndex: 2,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                paddingTop: "20px",
                 paddingBottom: "var(--space-8)",
               }}
             >
-              <LockForm caseStudyTitle={caseStudyTitle} />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/password hero.jpeg"
+                alt=""
+                aria-hidden="true"
+                style={{ width: "min(100%, 300px)", display: "block", pointerEvents: "none" }}
+              />
+              <div style={{ width: "min(100%, 360px)", marginTop: "22px" }}>
+                <LockForm caseStudyTitle={caseStudyTitle} />
+              </div>
             </div>
-
-            {/* Spacer: enough to contain image + form */}
-            <div style={{ height: "580px" }} aria-hidden="true" />
           </div>
         </>
       )}
