@@ -229,10 +229,9 @@ export default async function CaseStudyPage({ params }: PageProps) {
           // UNLOCKED: pass full phase data to the interactive stepper
           <PhaseStepper phases={cs.phases} />
         ) : (
-          // LOCKED: pass only first phase + stripped summaries for 2+
-          // No detail/exhibits/sections/video URLs for phases 2+ reach the client
+          // LOCKED: pass only stripped summaries for every phase
+          // No detail/exhibits/sections/video URLs reach the client
           <LockedPhaseStepper
-            firstPhase={cs.phases[0]}
             lockedPhases={getLockedPhaseSummaries(cs.phases)}
             caseStudyTitle={cs.title}
           />

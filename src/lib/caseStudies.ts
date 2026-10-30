@@ -598,12 +598,12 @@ export function getCaseStudy(slug: string): CaseStudy | undefined {
 }
 
 /**
- * Returns the stripped-down representation of phases 2+ that is safe to send
+ * Returns the stripped-down representation of every phase that is safe to send
  * to a locked visitor's browser. No detail, no exhibits, no sections, no video
  * URLs — only what is needed to render the collapsed rows.
  */
 export function getLockedPhaseSummaries(phases: Phase[]): LockedPhase[] {
-  return phases.slice(1).map(({ id, title, summary, status }) => ({
+  return phases.map(({ id, title, summary, status }) => ({
     id,
     title,
     summary,
