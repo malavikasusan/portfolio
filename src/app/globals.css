@@ -154,6 +154,27 @@ img, svg {
   transform: translate(0, 0);
 }
 
+/* ─── Case study list rows: thumbnail + details ──────────────────────────────── */
+.cs-row {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--space-6);
+  align-items: stretch;
+}
+
+/* Absolutely positioned media, so the text alone sets the row height */
+.cs-thumb {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.cs-thumb:hover .cs-thumb-play,
+.cs-thumb-play:focus-visible {
+  opacity: 1 !important;
+}
+
 /* ─── Responsive: narrow viewports ──────────────────────────────────────────── */
 @media (max-width: 600px) {
   :root {
@@ -173,6 +194,16 @@ img, svg {
 
   .uxdrt-timeline-detail {
     display: none;
+  }
+
+  /* Case study rows — thumbnail stacks above the details */
+  .cs-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .cs-thumb {
+    aspect-ratio: 16 / 9;
   }
 
   .career-detail {

@@ -580,6 +580,22 @@ Expected efficiency gains for teams adopting this process:
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
+export type HeroMedia =
+  | { type: "video"; src: string; playbackRate?: number }
+  | { type: "image"; src: string };
+
+/** The hero shown at the top of a case study, reused for its list thumbnail. */
+export function getHeroMedia(cs: CaseStudy): HeroMedia {
+  if (cs.heroVideo) {
+    return { type: "video", src: cs.heroVideo, playbackRate: cs.heroPlaybackRate };
+  }
+  // Guardium's hero video is set directly on its case study page
+  if (cs.slug === "guardium-exclusion-builder") {
+    return { type: "video", src: "/images/case-studies/guardium-exclusion-builder-hero.mov" };
+  }
+  return { type: "image", src: cs.heroImage ?? `/images/case-studies/${cs.slug}-hero.png` };
+}
+
 export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies.find((cs) => cs.slug === slug);
 }
