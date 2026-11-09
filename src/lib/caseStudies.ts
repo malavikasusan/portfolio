@@ -69,18 +69,18 @@ export const caseStudies: CaseStudy[] = [
     gated: false,
     heroVideo: "/images/case-studies/Summarization 9.3/Hero video.mp4",
     summary:
-      "From a vague 'summarize any page' feature request to a validated, evidence-driven insight system; discovery tooling, synthesis, data-science handoff, and ongoing build collaboration.",
+      "From a vague 'summarize any page' request to a validated insight system: discovery tooling, synthesis, data-science handoff and output review.",
     phases: [
       {
         id: "reframe",
         title: "The reframe",
         summary:
-          "The original ask treated summarization as compression. Voice-of-customer research said otherwise.",
-        detail: `The AI team was asked to build a summarization feature: let users summarize any page such as a work order, an asset, a list. It sounded simple. It wasn't the right problem.
+          "The ask was compression. Voice-of-customer research said users needed connection.",
+        detail: `The ask: let users summarize any page, such as a work order, an asset or a list.
 
-Looking at a Voice-of-Customer corpus of 24 "day in the life" interviews across asset managers, maintenance supervisors, and technicians, the pattern was clear: users weren't asking to read less. They were asking to understand faster. The real friction wasn't information volume, it was fragmentation; the same person checking six systems, three tabs, and a stack of paper before they could answer one question: what actually needs my attention right now?
+24 "day in the life" interviews with asset managers, maintenance supervisors and technicians said otherwise. The problem wasn't too much information. It was scattered information: six systems, three tabs and a stack of paper to answer one question: *what needs my attention right now?*
 
-From "summarize a record" to "surface a decision" became the thesis for everything that followed.
+So the thesis shifted from **summarize a record** to **surface a decision**.
 
 > "Users do not want more information. Users want help connecting information."
 > — synthesized finding, 9.3 AI Capabilities research playback`,
@@ -90,18 +90,13 @@ From "summarize a record" to "surface a decision" became the thesis for everythi
         id: "discovery-tooling",
         title: "Discovery tooling | BOB + VOC corpus",
         summary:
-          "Built a custom AI research agent to make 24+ interviews queryable, not just readable.",
-        detail: `Reading 24 long-form interviews once and pulling a few quotes wasn't going to hold up to the scale of patterns needed across personas, roles, and industries. Instead of treating the interviews as static documents, I structured them as a working research corpus; my first real, hands-on use of BOB, built with my team lead. I adapted the approach from a pattern used on another project, then refined the prompts and schema for this use case.
+          "Built an AI research agent to make 24 interviews searchable, not just readable.",
+        detail: `Reading 24 long interviews once and pulling quotes wouldn't hold up across personas, roles and industries. So I turned them into a searchable corpus with BOB, built with my team lead. It was my first hands-on use of BOB.
 
-What I built, concretely:
-
-**A custom BOB agent mode** ("voc-analyst"), a scoped role with its own permissions and a strictly enforced schema for any interview file the agent created: structured frontmatter (participant, role, industry, company, experience, location, assets managed, key challenges, tools used) followed by a narrative summary. This is what made the corpus consistent enough to query, rather than 24 differently-shaped documents.
-
-**An MCP server** ("virtual-voc") giving the agent tools to search, retrieve, and get stats across the corpus, so patterns could be pulled systematically instead of relying on memory or manual re-reading.
-
-**A calibration set**; seed content including reference KPIs and a sample use case, used to lock in the format and validate the agent's output before running it against real customer interviews.
-
-**A feasibility check, not just a wishlist**; the corpus sat alongside a folder documenting the Maximo AI Assistant's existing tool architecture. Every opportunity area coming out of discovery could be checked against what the assistant could technically already do, keeping synthesis grounded in feasibility rather than aspirational feature requests.`,
+- **A custom agent mode ("voc-analyst")** with a strict schema for every interview: participant, role, industry, challenges and tools, then a narrative summary.
+- **An MCP server ("virtual-voc")** so the agent could search and count patterns across all interviews instead of relying on memory.
+- **A calibration set** of reference KPIs and a sample use case, to check the agent's output before running it on real interviews.
+- **A feasibility check** against the Maximo AI Assistant's existing tools, so every opportunity stayed grounded in what was buildable.`,
         exhibits: [
           {
             type: "carousel",
@@ -124,15 +119,15 @@ What I built, concretely:
         id: "synthesis",
         title: "Synthesis: Painpoints to opportunity areas",
         summary:
-          "Persona-level painpoints, mapped to real Maximo data objects so design intent traced to what the system could build.",
-        detail: `Working with the highest-impact personas; Asset Manager and Maintenance Supervisor, painpoints were broken down on a Mural board, run in parallel with the mobile/technician design team covering their side of the product.
+          "Persona painpoints mapped to real Maximo data, so design intent traced to what the system could build.",
+        detail: `I mapped painpoints for the two highest-impact personas, Asset Manager and Maintenance Supervisor, on Mural. The mobile team did the same for technicians in parallel.
 
-For Maintenance Supervisors specifically, two use cases surfaced clearly:
+For supervisors, two use cases stood out:
 
-1. **Shift-handoff summary**: What happened overnight, what's still blocked, what needs immediate attention.
-2. **Prioritize today's work**: What's new, what's urgent, what's blocked, ranked by safety and production impact.
+1. **Shift handoff:** what happened overnight, what's blocked, what needs attention now.
+2. **Prioritize today's work:** new, urgent and blocked work, ranked by safety and production impact.
 
-Each opportunity was then broken down to the level of what Maximo data it would actually require; objects, relationships, and fields (WORKORDER, ASSET, WPMATERIAL, WFASSIGNMENT, and more) so the design intent could be traced directly to what the system could realistically surface. This wasn't a nice-to-have step; it's what made the handoff to engineering actionable instead of aspirational.`,
+I broke each use case down to the Maximo objects and fields it needs (WORKORDER, ASSET, WPMATERIAL, WFASSIGNMENT and more). That's what made the handoff actionable rather than aspirational.`,
         exhibits: [
           { type: "image", src: "/images/case-studies/Summarization 9.3/Mural snapshot.png", caption: "Mural synthesis; persona painpoints → AI summary opportunity → what should be included" },
         ],
@@ -141,10 +136,10 @@ Each opportunity was then broken down to the level of what Maximo data it would 
         id: "handoff",
         title: "Handoff to data science",
         summary:
-          "A structured spec, not a slide deck: inclusion criteria and object mapping the engineering team could build against.",
-        detail: `The synthesis; inclusion criteria, object/field mapping, and example outputs was packaged into a structured spec and handed to the Data Science team building the summarization config engine, as a Jira story with explicit acceptance criteria: findings documented, information needs synthesized, playback delivered, and full traceability from research evidence to every recommendation.
+          "A buildable spec, not a slide deck.",
+        detail: `The inclusion criteria, object and field mapping and example outputs went to the Data Science team as a Jira story. It had clear acceptance criteria, and every recommendation traced back to the research.
 
-The same process ran in parallel for the technician/mobile side, led by colleagues on that team, using the same inclusion-criteria structure so both halves of the product could converge on one architecture rather than diverging into two.`,
+The mobile team used the same structure for technicians, so both halves of the product converged on one architecture.`,
         exhibits: [
           { type: "image", src: "/images/case-studies/Summarization 9.3/Data science doc handoff.png", caption: "Snapshot of hand off document with Maximo object structure and field mapping for every AI information need" },
         ]
@@ -153,31 +148,30 @@ The same process ran in parallel for the technician/mobile side, led by colleagu
         id: "build-collaboration",
         title: "Staying in the build",
         summary:
-          "Handoff wasn't the end, ongoing collaboration to simplify a config architecture that outgrew itself.",
-        detail: `The intent/input/output framework the Data Science team built, defining what the summary should contain, what data to pull, how to analyze it, and how to format the output; needed continuous design input to stay grounded in real user needs rather than technical convenience.
+          "Handed over for execution. I now review the summary and insight outputs it produces.",
+        detail: `Data Science built an intent/input/output framework: what a summary contains, what data it pulls, and how it's analyzed and formatted.
 
-That collaboration is ongoing. The config architecture the Data Science team built itself another BOB project, became more complex than it needed to be as capability grew. Currently working with them to simplify it, running a local instance of the config tool to test and propose a cleaner structure directly rather than only specifying requirements from the outside.`,
+The work has now been handed over for execution. I review the summary and insight outputs it produces, both for individual records and for multiple records across work orders, tickets, work queues and more.
+
+For each, I provide the schema and the information signals the output should draw on, so it stays grounded in user needs rather than technical convenience.`,
         exhibits: [
           { type: "image", src: "/images/case-studies/Summarization 9.3/Summary configuration tool.png", caption: "Current intent/input/output framework — mapping what each summary should surface, what Maximo data feeds it, and how the output is structured and formatted." },
         ],
-        status: "in-progress",
       },
       {
         id: "validation",
         title: "Validating with users",
         summary:
-          "5-participant UT: relevance was easy, trust had to be earned through evidence.",
-        detail: `Skip the read and watch the [playback presentation](https://drive.google.com/file/d/1FqPvbvPGtKlvextDW7WSTdS8w28GVfKz/view?usp=sharing) from the user session.
+          "5 participants: relevance came easily, trust had to be earned with evidence.",
+        detail: `Prefer video? Watch the [playback presentation](https://drive.google.com/file/d/1FqPvbvPGtKlvextDW7WSTdS8w28GVfKz/view?usp=sharing).
 
-Before committing further design direction, I planned and led a round of usability testing — 5 participants, evaluating early AI-insight concepts against three questions: what should surface first, what builds trust, and where AI actually reduces investigation effort.
+Before going further, I planned and led usability testing of early AI-insight concepts with 5 participants. It tested three questions: what should surface first, what builds trust, and where AI actually saves investigation effort.
 
-What was learned:
+- **Relevance was high (4.2/5)** when information matched the person's role.
+- **Trust lagged (3.4/5).** It came from visible evidence and transparent reasoning, not confidence scores.
+- **Five needs recurred across roles:** what's urgent, what's blocked, what's broken, what happened before, and why it matters.
 
-Relevance was high (4.2/5) when information matched role context, but trust (3.4/5) didn't follow automatically. Trust wasn't driven by AI confidence scores; it was driven by visible evidence and transparency in the reasoning.
-
-Participants converged on five recurring information needs, regardless of role: what's urgent, what's blocked, what's broken, what happened before, why this matters.
-
-Five concrete design principles emerged and are now shaping the OOTB AI direction for Maximo: progressive disclosure, always show evidence, surface exceptions over routine status, pair current state with historical context, and always recommend a next action.`,
+These became five design principles now shaping Maximo's AI direction: progressive disclosure, always show evidence, surface exceptions over routine, pair current state with history, and always recommend a next action.`,
         exhibits: [
           {
             type: "carousel",
@@ -204,18 +198,18 @@ Five concrete design principles emerged and are now shaping the OOTB AI directio
         id: "current-status",
         title: "Where this stands",
         summary:
-          "Discovery and validation are done. Config simplification is active now.",
-        detail: `This work is still in motion. Discovery and validation are complete; the config architecture simplification is active right now. That's an honest reflection of what strategic AI design work actually looks like; it's not a single ship date, it's a design system that keeps getting refined as the underlying capability matures.
+          "Discovery and validation done. Now in execution, with design review of every output.",
+        detail: `Discovery and validation are complete, and the work is now in execution. I stay involved by reviewing what the summaries and insights actually produce.
 
-[Watch a quick preview of the future insight generation tool](https://drive.google.com/file/d/1A9EkFnc6JDhEc2rT87gW1xusv1eRz7n1/view?usp=sharing) — this is a conceptual idea of how we can better onboard users to configure different insights.
+[Watch a preview of the future insight-generation tool](https://drive.google.com/file/d/1A9EkFnc6JDhEc2rT87gW1xusv1eRz7n1/view?usp=sharing), a concept for helping users set up their own insights.
 
-What this project demonstrates:
-- Reframing a feature request into the right problem, grounded in evidence rather than assumption
-- Building the discovery infrastructure itself when off-the-shelf methods wouldn't scale
-- Translating design intent into a spec engineers could build against, and staying embedded through the build, not just at handoff
-- Closing the loop with real users, and letting what they said reshape the direction rather than confirm it`,
+What this project shows:
+
+- Reframing a feature request into the right problem, using evidence
+- Building research tooling when standard methods wouldn't scale
+- Turning design intent into a buildable spec, and staying involved through execution
+- Letting user feedback reshape the direction, not just confirm it`,
         exhibits: [],
-        status: "in-progress",
       },
     ],
   },
