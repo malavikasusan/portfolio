@@ -365,6 +365,9 @@ export default function PhaseStepper({ phases }: PhaseStepperProps) {
                                   p: ({ children }) => (
                                     <p style={{ marginBottom: "4px" }}>{children}</p>
                                   ),
+                                  ul: ({ children }) => (
+                                    <ul style={{ listStyle: "disc", paddingLeft: "var(--space-6)", marginBottom: "4px" }}>{children}</ul>
+                                  ),
                                 }}
                               >
                                 {section.text}

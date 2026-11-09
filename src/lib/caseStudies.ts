@@ -222,126 +222,119 @@ What this project shows:
     timeline: "Mar - May 2026",
     gated: false,
     heroVideo: "/images/case-studies/9.2%20validation%20plan/Hero%20-%209.2%20usability.mp4",
-    heroCaption: "Quick preview of the Maximo Assistant — reasoning trace shown for a simple query as it plans, retrieves, and generates results.",
+    heroCaption: "The Maximo Assistant's reasoning trace for a simple query: planning, retrieving and generating results.",
     heroPlaybackRate: 1.4,
-    summary:
-      "I planned the validation methodology, built the recruiting and participant infrastructure, ran and note-took every session, synthesized findings across 8 users from 3 companies, and brought results to an executive playback that shaped 9.3 priorities.",
+    summary: "I planned the study, recruited participants, ran every session and synthesized findings from 8 users across 3 companies. The results, presented to executives, shaped 9.3 priorities.",
     phases: [
       {
         id: "methodology",
         title: "Designing the validation plan",
-        summary:
-          "Before any prototype went in front of a user, I wrote the plan: what we were testing, how we'd measure it, and what success looked like.",
+        summary: "Before any user saw a prototype, I wrote the plan: what to test, how to measure it and what success looked like.",
         sections: [
           {
             id: "methodology-context",
             title: "",
-            text: "When I joined the team, several designers were shipping a growing set of agentic capabilities for the Maximo Assistant. None of it had been validated with real users. My first owned project was closing that gap.\n\nI started by writing a proper validation plan, not just a script. That meant defining:",
+            text: "When I joined, the team was shipping a growing set of agentic capabilities for the Maximo Assistant. None had been tested with real users. My first owned project was closing that gap, starting with a proper validation plan, not just a script.",
             exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/validation%20plan.png", caption: "Validation plan — objectives, methodology, and task scenarios." },
           },
           {
             id: "methodology-detail",
             title: "What the plan covered",
-            text: "**The goal** — Understand whether the assistant behaves the way users expect when completing common asset management tasks. Does it surface the right information at the right time? Does it help people make confident decisions? Does it actually fit into their workflow, or does it feel bolted on?\n\n**The scope** — Every feature currently planned for 9.2, plus a few post-9.2 items like RAG based document search, tested early so we'd have signal before they were fully built.\n\n**The method** — Moderated sessions over Teams, using a clickable Figma prototype, so we could watch people think out loud rather than just collect survey answers.\n\n**The tasks** — Five scenarios that built on each other rather than testing features in isolation: launch the assistant and take a tour, run a simple query that returns a large list of assets, investigate the condition of a single asset, follow up with a general knowledge question, then repeat the condition check across multiple assets. Each task got harder and more realistic than the last.\n\n**The metrics** — Task success without moderator help, a post task trust rating on a 7 point scale, and separate single item measures for perceived usefulness and effort. I wanted numbers we could compare across rounds, not just anecdotes.\n\nI ran this with two teammates, Jen and Danial, rotating facilitator and note taker roles across sessions so no single person's fatigue or bias shaped every transcript.",
+            text: "**Goal:** Does the assistant behave the way users expect on common asset management tasks? Does it surface the right information, support confident decisions and fit into their workflow?\n\n**Scope:** Every planned 9.2 feature, plus early post-9.2 items like RAG-based document search.\n\n**Method:** Moderated Teams sessions with a clickable Figma prototype, so we could watch people think aloud.\n\n**Tasks:** Five connected scenarios, each harder than the last. Take a tour, run a simple query, check one asset's condition, ask a general knowledge question, then check condition across several assets.\n\n**Metrics:** Task success without help, a 7-point trust rating after each task, and single-question ratings for usefulness and effort. That way rounds could be compared on numbers, not anecdotes.\n\nI ran it with teammates Jen and Danial. We rotated facilitator and note-taker roles so no one person's fatigue or bias shaped every session.",
           },
         ],
       },
       {
         id: "recruiting",
         title: "Recruiting and participant infrastructure",
-        summary:
-          "Structured, personal outreach across three real companies, tracked closely enough to know who we'd spoken to before and what they cared about.",
+        summary: "Personal outreach to real Maximo users at three companies, tracked so every contact came with context.",
         sections: [
           {
             id: "recruiting-context",
             title: "",
-            text: "We recruited 8 participants across three rounds and three companies, covering roles from asset managers and maintenance planners to solutions architects and admins. The last 2 participants landed in a third round after the original two-round schedule. This wasn't a recruiting panel, it was direct outreach to people who actually use Maximo, many of whom we'd spoken to in a previous 9.1 round.\n\nI wrote and sent the outreach emails myself, tracked every reply, and kept a running record of who'd been contacted, what they said, what role they were being slotted into, and who they'd referred us to. When a contact suggested other people at their company, I followed up specifically to understand each new person's role before inviting them, so we weren't guessing whether someone was actually relevant to the study.\n\nThis is the same instinct that later became the reusable participant tracking system I built for future studies. Here, at the very start, it looked like a detailed spreadsheet of names, roles, companies, and conversation history. It worked because every contact had context attached to them, not just an email address.",
-            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/Participant%20structure.png", caption: "Participant repository built on Monday — 45+ contacts across multiple orgs and 12+ roles, structured for cross-study reuse." },
+            text: "8 participants across three rounds and three companies, from asset managers and maintenance planners to solutions architects and admins. There was no recruiting panel. It was direct outreach to people who use Maximo, many from an earlier 9.1 round.\n\nI wrote the outreach, tracked every reply, and logged each contact's role, company, conversation history and referrals. When someone referred a colleague, I checked that person's role before inviting them.\n\nThat spreadsheet later grew into a reusable participant tracking system for future studies.",
+            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/Participant%20structure.png", caption: "Participant repository on Monday: 45+ contacts, multiple orgs and 12+ roles, built for reuse across studies." },
           },
         ],
       },
       {
         id: "sessions",
         title: "Running the sessions",
-        summary:
-          "Moderated, hour long sessions with a shared note taking structure so findings could actually be compared across participants.",
+        summary: "Hour-long moderated sessions with a shared note structure, so findings could be compared across participants.",
         sections: [
           {
             id: "sessions-detail",
             title: "",
-            text: "Each session followed the same shape: a short introduction and consent step, screener questions about the participant's role and Maximo experience, then the five task scenarios, then a closing questionnaire.\n\nI built the note taking template so that facilitator and note taker roles could rotate across sessions without losing consistency. Every session captured the same structure: what the script asked, what the participant did, and what they said, side by side, so synthesis later wasn't a matter of interpreting scattered notes.\n\nOne thing that stands out from the raw session transcripts: participants gave us more than surface reactions. In one session, a Maximo admin for a facilities focused organization walked us through his actual workaround process, building a separate data warehouse outside Maximo because cross application queries were too slow inside the tool. That kind of detail doesn't show up in a survey. It only comes out when someone is thinking out loud in front of you, which is exactly why we chose moderated sessions over a self serve survey.",
-            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/Script%2C%20session%20notes.png", caption: "Session script and live note-taking doc — facilitator prompts written to be non-leading, with a parallel column for the note-taker to capture what the participant did and said without interrupting." },
+            text: "Every session followed the same shape: intro and consent, screener questions, five tasks, then a closing questionnaire.\n\nI built a note template that put the script, what the participant did and what they said side by side. Roles could rotate without losing consistency, and synthesis didn't depend on interpreting scattered notes.\n\nModerated sessions paid off. One admin walked us through his workaround: a separate data warehouse outside Maximo, because queries across applications were too slow. That doesn't come out in a survey.",
+            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/Script%2C%20session%20notes.png", caption: "Session script and live notes: non-leading facilitator prompts, with a parallel column for what the participant did and said." },
           },
         ],
       },
       {
         id: "current-state",
-        title: "What we learned",
-        summary:
-          "Before testing the assistant, we measured how hard the job already was. It set the bar for what the AI needed to beat.",
+        title: "Measuring the baseline",
+        summary: "First, we measured how hard the job already was. That set the bar for the AI.",
         sections: [
           {
             id: "current-state-detail",
             title: "",
-            text: "Two baseline questions anchored the whole study: how easy is it to find information in Maximo today, and how easy is it to understand an asset's condition today.\n\nFinding data rated 5.6 out of 7, somewhat easy, but only once someone already knew what they were looking for. Participants relied heavily on prior knowledge of the system rather than being guided to information. Difficulty spiked when projects were closed, when service records had many linked entries, or when someone had to cross from one application into another.\n\nUnderstanding asset condition rated a full point and a half lower, 4 out of 7. This wasn't a tooling gap, it was a synthesis problem. Participants described manually pulling together work orders, work order history, meter data, logs, inspections, and notes, then holding all of it in their head to form a judgment. One participant put it plainly: he'd use Maximo as a starting point, then go find a technician and ask them what was really going on.\n\nThat gap, between being able to find records and being able to understand what's actually happening, became the lens for everything we tested next.",
-            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/Base%20line%20rating.png", caption: "Baseline ratings for current Maximo experience — 5.6/7 for finding data, 4/7 for understanding asset condition. The gap between locating records and synthesising them set the bar for what the assistant needed to beat." },
+            text: "Two baseline questions anchored the study:\n\n- **Finding information: 5.6/7.** Easy, but only if you already knew where to look. It got harder with closed projects, records with many linked entries, or moving between applications.\n- **Understanding asset condition: 4/7.** A synthesis problem, not a tooling gap. People pieced together work orders, history, meter data, inspections and notes in their heads. One participant used Maximo as a starting point, then asked a technician what was really going on.\n\nThat gap between *finding* records and *understanding* them became the lens for everything we tested next.",
+            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/Base%20line%20rating.png", caption: "Baseline ratings: 5.6/7 for finding data, 4/7 for understanding asset condition." },
           },
         ],
       },
       {
         id: "findings",
         title: "Testing each AI capability",
-        summary:
-          "We tested five capability areas. Reasoning and confirmation was the big one, but every capability taught us something specific.",
+        summary: "Five capability areas. Reasoning and confirmation was the big one, but each taught us something.",
         sections: [
           {
             id: "chat-history",
             title: "Chat history",
-            text: "Chat history aligned closely with what people already expected from a chat tool. Everyone understood the list as previous conversations, recognized chronological grouping and pinned chats, and expected clicking into a chat to resume or review it, similar to any consumer chat app. Renaming a conversation and pinning it for later were both used naturally, without us explaining how. The main gap was scale: conversation titles were often unclear or truncated, and 3 of 8 participants suggested AI-summarized titles and better grouping as history grows.",
+            text: "It matched what people expect from any chat app. Everyone understood the list, the grouping and the pinning, and renamed or pinned chats without help. The gap was scale: titles were often unclear or cut off, and 3 of 8 suggested AI-generated titles and better grouping.",
             exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/other%20capabilitys.png", caption: "Testing summary across assistant launch, quick starters, and chat history — three capabilities users navigated without guidance." },
           },
           {
             id: "normal-query",
             title: "Finding records with a simple query",
-            text: "This was a basic test, asking the assistant to find assets at a specific site with open work orders. All 8 participants valued the expanded results view, it made scanning the response far easier than the default inline reply. But a good first answer just raised the next question. Several participants immediately wanted to refine the query rather than stop at the initial results, check which assets had the most work orders tied to them, or add more analytical depth like work order type and actual duration. That's the right instinct to build toward, an assistant that supports investigation, not one that ends it after one answer.",
-            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/Simple%20query%201.png", caption: "Reasoning (query tool) findings — 8/8 valued the reasoning trace for transparency, 7/8 interpreted it correctly, but technical language created friction." },
+            text: "Asked to find assets at a site with open work orders, all 8 valued the expanded results view. But a good answer raised the next question. People wanted to refine it, see which assets had the most work orders, or add work order type and duration. The assistant should support investigation, not end it.",
+            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/Simple%20query%201.png", caption: "Reasoning (query tool) findings: 8/8 valued the reasoning trace and 7/8 read it correctly, but technical language caused friction." },
           },
           {
             id: "condition-assessment",
             title: "Condition assessment, single and multiple assets",
-            text: "Single asset insights were where the assistant felt most immediately useful. People understood insights as summaries of condition, historical data, and action oriented health evaluations, exactly how they already evaluate assets manually. One participant said it was very close to evaluation work I perform manually. The friction was presentation, the default view felt too long and dense, and three participants asked for a way to copy the generated insight out.\n\nMulti-asset insights were valued too, but participants outgrew asset by asset summaries fast. Once you're looking at five pumps instead of one, you don't want five separate paragraphs, you want the pattern across them. One participant put it directly: tell me what's important across these assets, not just what's happening to each one. That single line became one of the clearest signals for what 9.3 needed to prioritize, fleet level summaries and root cause patterns, not repeated single asset templates.",
+            text: "Single-asset insights felt the most immediately useful, matching how people already assess assets by hand (\"very close to evaluation work I perform manually\"). The friction: the view was long and dense, and 3 people asked for a way to copy the insight.\n\nWith multiple assets, people quickly outgrew per-asset summaries. Looking at five pumps, they wanted the pattern, not five paragraphs: \"tell me what's important across these assets.\" That line became one of the clearest signals for 9.3: summaries across a whole fleet, and root causes.",
             exhibit: { type: "carousel", src: "", caption: "Single and multi-asset condition insight findings", slides: [
-              { src: "/images/case-studies/9.2%20validation%20plan/single%20asset.png", caption: "Single asset insight — strongly aligned with how users already evaluate assets manually. Key ask: a way to copy insights out." },
-              { src: "/images/case-studies/9.2%20validation%20plan/mult%20asset%20.png", caption: "Multiple asset insight — users valued it, but wanted cross-asset patterns and priorities, not repeated per-asset summaries." },
+              { src: "/images/case-studies/9.2%20validation%20plan/single%20asset.png", caption: "Single-asset insight: closely matched how users already assess assets. Key ask: a way to copy insights out." },
+              { src: "/images/case-studies/9.2%20validation%20plan/mult%20asset%20.png", caption: "Multi-asset insight: valued, but users wanted patterns and priorities across assets, not repeated summaries." },
             ]},
           },
           {
             id: "gen-llm",
             title: "General knowledge, with and without references",
-            text: "When the assistant answered from general knowledge rather than Maximo data, with no reference attached, 100% of participants correctly understood the distinction. People shifted naturally from what happened to how do I fix it, and several immediately asked follow up questions like whether replacement parts were available.\n\nWhen references were introduced, source visibility became the real sticking point. Everyone saw value in references for validating information and accessing documentation, but 5 of 8 wanted stronger visibility into exactly where information came from, and 3 of 8 remained uncertain about the actual source even after seeing the general knowledge label. That gap directly informed the case for investing further in document search and citation for 9.3.",
-            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/Gen%20knowledge.png", caption: "General knowledge + references — 100% understood the distinction from Maximo data, but 3/8 remained uncertain of the actual source, directly informing the case for document search in 9.3." },
+            text: "Without references, 100% understood when an answer came from general knowledge rather than Maximo data. They moved naturally from \"what happened\" to \"how do I fix it\".\n\nWith references, the source was the sticking point. 5 of 8 wanted to see more clearly where information came from, and 3 of 8 stayed unsure of the source. That made the case for investing in document search and citation for 9.3.",
+            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/Gen%20knowledge.png", caption: "General knowledge and references: 100% understood the difference from Maximo data, but 3/8 stayed unsure of the source." },
           },
           {
             id: "reasoning-confirmation",
             title: "Reasoning and confirmation, the big one",
-            text: "This was the capability we spent the most time validating, and it earned that attention. All 8 participants valued the reasoning trace for transparency, trust, and understanding what the assistant was doing, and 7 of 8 interpreted it correctly the first time. It had a ceiling though, technical phrasing like href and single query operation confused people, and once they understood the assistant was repeating the same analysis pattern across multiple assets, the reasoning trace started to feel redundant rather than reassuring.\n\nConfirmation states worked for a similar reason. 7 of 8 correctly understood the continue or cancel step as validating the selected records before analysis, and people genuinely checked asset type, description, location, priority, and record count before deciding, real cognitive work. But Continue and Cancel didn't clearly communicate their consequences. We recommended changing the confirmation copy to something closer to Confirm records to generate insights, so the action matched the thinking users were already doing.\n\nConfidence scores followed the same pattern. 7 of 8 understood the rating correctly, but almost everyone wanted to know what was behind the number, which records contributed, how recent the data was, whether anything was missing. Confidence without evidence didn't fully land as trust.",
-            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/Chat%20Assist%20UT%20-%20Current%20Experience.png", caption: "Reasoning and trust — 8/8 valued the reasoning trace, but technical terms like 'href' and 'single query operation' reduced clarity. Users wanted reasoning linked to records, not just shown." },
+            text: "The capability we spent the most time on.\n\n- **Reasoning trace:** 8 of 8 valued it for transparency and 7 of 8 read it correctly. But terms like \"href\" and \"single query operation\" confused people, and across multiple assets the repeated steps felt redundant.\n- **Confirmation:** 7 of 8 understood Continue/Cancel as checking the selected records, and genuinely checked type, location, priority and count. But the buttons didn't say what would happen next. We recommended copy like \"Confirm records to generate insights\".\n- **Confidence scores:** 7 of 8 understood them, but nearly everyone wanted to know what was behind the number: which records, how recent, what was missing. Confidence without evidence didn't build trust.",
+            exhibit: { type: "image", src: "/images/case-studies/9.2%20validation%20plan/Chat%20Assist%20UT%20-%20Current%20Experience.png", caption: "Reasoning and trust: 8/8 valued the trace, but terms like 'href' reduced clarity. Users wanted reasoning linked to records." },
           },
         ],
       },
       {
         id: "outcome",
         title: "Synthesis, scores, and shaping 9.3",
-        summary:
-          "6.8/7 on productivity impact. 6.4/7 on condition insight value. And a set of clear, evidence backed priorities for what came next.",
+        summary: "6.8/7 on productivity impact, 6.4/7 on condition insight value, and clear priorities for 9.3.",
         sections: [
           {
             id: "outcome-detail",
             title: "",
-            text: "Across the closing questionnaire, participants rated the assistant's potential productivity impact at 6.8 out of 7, and the value of condition insights specifically at 6.4 out of 7. Trust in the reasoning explanation landed lower, at 5.8, reflecting the gap between understanding what it's doing and fully trusting why it's doing it, which is exactly the distinction that later became central to the 9.3 summarization work.\n\nI synthesized findings across all 8 participants and brought them to a wider team playback, then to an executive session, where the results directly shaped 9.3 priorities:\n\nContext aware, role based workflows, moving the assistant from answering isolated questions toward supporting a full path from insight to follow up question to procedure to action.\n\nSource backed, explainable confidence, continued investment in document search and citation, plus clearer explanations of what data and reasoning sat behind every confidence score.\n\nBetter multi asset scanning and prioritization, surfacing shared root causes and ranked priority across assets instead of repeating the same single asset template.\n\nThis wasn't usability testing as a final check before ship. It was usability testing as the thing that decided what got built next.",
+            text: "Closing scores: **6.8/7** for potential productivity impact and **6.4/7** for condition insights. Trust in the reasoning was lower at **5.8/7**: people understood *what* it did more than they trusted *why*. That distinction later became central to the 9.3 summarization work.\n\nI presented the synthesis at a team playback, then at an executive session, where it shaped three 9.3 priorities:\n\n- **Context-aware, role-based workflows:** from isolated answers to a path from insight, to follow-up question, to action.\n- **Source-backed, explainable confidence:** more document search and citation, and clear evidence behind every score.\n- **Ranking problems across many assets:** shared root causes and ranked priorities, not the same single-asset template repeated.\n\nThe testing wasn't a final check before shipping. It decided what got built next.",
             exhibit: { type: "carousel", src: "", caption: "Outcome scores and 9.3 priorities shaped by testing", slides: [
-              { src: "/images/case-studies/9.2%20validation%20plan/Final%20outcome%20results.png", caption: "Closing scores — 6.8/7 productivity impact, 6.4/7 condition insight value. Users understood and valued the assistant most when it helped them move from a question to a decision." },
-              { src: "/images/case-studies/9.2%20validation%20plan/9.3%20priotieis.png", caption: "9.3 priorities shaped directly by testing — context-aware workflows, source-backed confidence, multi-asset patterns, and evolving the assistant from retrieval toward action-oriented insights." },
+              { src: "/images/case-studies/9.2%20validation%20plan/Final%20outcome%20results.png", caption: "Closing scores: 6.8/7 productivity impact, 6.4/7 condition insight value." },
+              { src: "/images/case-studies/9.2%20validation%20plan/9.3%20priotieis.png", caption: "9.3 priorities shaped by testing: context-aware workflows, source-backed confidence and patterns across assets." },
             ]},
           },
         ],
