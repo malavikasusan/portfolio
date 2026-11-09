@@ -74,7 +74,7 @@ const career: CareerEntry[] = [
       { text: "Aphelia Innovations", href: "https://www.apheliainnovations.com/" },
     ],
     detail:
-      "Progressed from intern to full-time in 2 months. Owned 0-to-1 design for two financial-domain products, converting manual Excel workflows into monitoring software and building a loan-model-ratio calculator. Designed DigiDonor (QR-based charity app) and contributed onboarding design for Sevaro, a WCAG 2.0-compliant telehealth app.",
+      "My pivot from architecture. A self-taught designer, I joined as an intern and went full-time within 2 months. Owned 0-to-1 design for two financial-domain products, converting manual Excel workflows into monitoring software and building a loan-model-ratio calculator. Designed DigiDonor (QR-based charity app) and contributed onboarding design for Sevaro, a WCAG 2.0-compliant telehealth app.",
   },
   {
     id: "architecture",
@@ -89,11 +89,11 @@ const career: CareerEntry[] = [
       { text: "Talati & Panthaky Associates", href: "https://talatiandpartners.com/" },
     ],
     detail:
-      "Four years across architecture studios in Bangalore and Mumbai, spatial design, complex systems, and client-facing project delivery. Built a foundation in systems thinking that continues to inform product and UX practice. Transitioned into product design via an MSc in Interaction & Experience Design at the University of Limerick.",
+      "Four years across architecture studios in Bangalore and Mumbai, spatial design, complex systems, and client-facing project delivery. Built a foundation in systems thinking that continues to inform product and UX practice.",
   },
   {
     id: "barch",
-    period: "2012 – 2013",
+    period: "2012 – 2016",
     role: "Bachelor of Architecture",
     orgParts: [
       { text: "HCCA", href: "https://holycrescentcollege.edu.in/" },
